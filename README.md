@@ -40,3 +40,7 @@ API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -)
 ### `mailcow_api_allow_from`
 
 comma separated list of IPs to allow API access from
+
+### `mailcow_acme_staging`: `no`
+
+if ACME staging should be used (s. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#test-against-staging-acme-directory)

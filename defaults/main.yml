@@ -7,4 +7,6 @@ mailcow_install_path: /opt/mailcow-dockerized
 mailcow_docker_compose_project_name: mailcowdockerized
 mailcow_docker_compose_state:        present
 
+mailcow_acme_staging: no
+
 ...
