@@ -1,0 +1,15 @@
+---
+
+- name: Ensure git installed
+  ansible.builtin.apt:
+    packages: git
+
+- name: Ensure mailcow cloned
+  ansible.builtin.git:
+    repo:    https://github.com/mailcow/mailcow-dockerized.git
+    version: "{{ mailcow_version }}"
+    update:  no
+    dest:    "{{ mailcow_install_path }}"
+    umask:   '022'
+
+...
