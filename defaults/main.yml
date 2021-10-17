@@ -4,4 +4,7 @@ mailcow_timezone:     Europe/Berlin
 mailcow_version:      master
 mailcow_install_path: /opt/mailcow-dockerized
 
+mailcow_docker_compose_project_name: mailcow_dockerized
+mailcow_docker_compose_state:        present
+
 ...

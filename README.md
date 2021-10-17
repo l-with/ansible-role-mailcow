@@ -21,3 +21,10 @@ the time zone for mailcow
 
 the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameter-version) to checkout
 
+### `mailcow_docker_compose_project_name`: `mailcow_dockerized`
+
+the name for the mailcow docker compose project
+
+### `mailcow_docker_compose_state`: `present`
+
+state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html)
