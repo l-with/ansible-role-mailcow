@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: tasks/main.yml
+  allowed_patterns:
+    - >
+      API_KEY={{ mailcow_api_key }}
+    - >
+      API_KEY_READ_ONLY={{ mailcow_api_key_read_only }}
+
