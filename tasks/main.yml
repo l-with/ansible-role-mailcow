@@ -30,7 +30,7 @@
     insertafter: "#API_KEY="
     block: |
       API_KEY={{ mailcow_api_key }}
-  when: mailcow_api_key is defined and mailcow_api_key
+  when: mailcow_api_key is defined
 
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
@@ -40,7 +40,7 @@
     insertafter: "#API_KEY_READ_ONLY="
     block: |
       API_KEY_READ_ONLY={{ mailcow_api_key_read_only }}
-  when: mailcow_api_key_read_only is defined and mailcow_api_key_read_only
+  when: mailcow_api_key_read_only is defined
 
 - name: Ensure API allow from
   ansible.builtin.blockinfile:
@@ -50,7 +50,7 @@
     insertafter: "#API_ALLOW_FROM="
     block: |
       API_ALLOW_FROM={{ mailcow_api_allow_from }}
-  when: mailcow_api_allow_from is defined and mailcow_api_allow_from
+  when: mailcow_api_allow_from is defined
 
 - name: Ensure ACME staging
   ansible.builtin.blockinfile:
