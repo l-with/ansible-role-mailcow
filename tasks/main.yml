@@ -2,7 +2,7 @@
 
 - name: Ensure git installed
   ansible.builtin.apt:
-    packages: git
+    package: git
 
 - name: Ensure mailcow cloned
   ansible.builtin.git:
