@@ -9,6 +9,14 @@ Note that this also requires installation of the python libraries `docker` and `
 
 ## Role Variables
 
+### `mailcow_hostname`
+
+the host name for mailcow
+
+### `mailcow_timezone`: `Europe/Berlin`
+
+the time zone for mailcow
+
 ### `mailcow_version`: `master`
 
 the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameter-version) to checkout

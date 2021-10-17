@@ -12,4 +12,14 @@
     dest:    "{{ mailcow_install_path }}"
     umask:   '022'
 
+- name: Ensure mailcow.conf generated
+  shell: ./generate_config.sh
+  environment:
+    MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
+    MAILCOW_TZ: "{{ mailcow_timezone }}"
+  args:
+    executable: /bin/bash
+    chdir: "{{ mailcow_install_path }}"
+    creates: mailcow.conf
+
 ...
