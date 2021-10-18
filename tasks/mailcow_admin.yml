@@ -22,8 +22,8 @@
     method: get
   register: response
   until:    response.status == 200
-  retries:  6
-  delay:    10
+  retries:  30
+  delay:    20
 
 - name: Ensure delete default admin
   ansible.builtin.shell: 
