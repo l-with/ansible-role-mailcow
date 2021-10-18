@@ -2,7 +2,7 @@
 
 - name: Ensure delete default admin helper script
   ansible.builtin.template:
-    src:  mailcow-delete-default-admin.sh.j2
+    src:  mailcow_delete_default_admin.sh.j2
     dest: "{{ mailcow_delete_default_admin_script }}"
     owner: root
     group: root
@@ -10,14 +10,14 @@
 
 - name: Ensure set admin helper script
   ansible.builtin.template:
-    src:  mailcow-set-admin.sh.j2
+    src:  mailcow_set_admin.sh.j2
     dest: "{{ mailcow_set_admin_script }}"
     owner: root
     group: root
     mode:  u+x,o-r
 
 # - name: Ensure delete default admin
-#   ansible.builtin.command: 
+#   ansible.builtin.shell: 
 #     cmd: 
 #   environment:
 #     MAILCOW_ADMIN: admin
@@ -25,6 +25,5 @@
 #     executable: /bin/bash
 #     chdir: "{{ mailcow_install_path }}"
 #     creates: mailcow.conf
-
 
 ...
