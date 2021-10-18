@@ -17,10 +17,10 @@
 - name: Ensure mailcow is installed with docker-compose
   community.docker.docker_compose:
     project_name: "{{ mailcow_docker_compose_project_name }}"
-    project_src: "{{ mailcow_install_path }}"
-    state: "{{ mailcow_docker_compose_state }}"
+    project_src:  "{{ mailcow_install_path }}"
+    state:        "{{ mailcow_docker_compose_state }}"
 
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml
-  
+
 ...

@@ -4,17 +4,17 @@
   ansible.builtin.shell: ./generate_config.sh
   environment:
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
-    MAILCOW_TZ: "{{ mailcow_timezone }}"
+    MAILCOW_TZ:       "{{ mailcow_timezone }}"
   args:
     executable: /bin/bash
-    chdir: "{{ mailcow_install_path }}"
-    creates: mailcow.conf
+    chdir:      "{{ mailcow_install_path }}"
+    creates:    mailcow.conf
 
 - name: Ensure API key
   ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY)"
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    marker:      "### {mark} ANSIBLE MANAGED BLOCK (API_KEY)"
     insertafter: "#API_KEY="
     block: |
       API_KEY={{ mailcow_api_key }}
@@ -22,9 +22,9 @@
 
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY_READ_ONLY)"
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    marker:      "### {mark} ANSIBLE MANAGED BLOCK (API_KEY_READ_ONLY)"
     insertafter: "#API_KEY_READ_ONLY="
     block: |
       API_KEY_READ_ONLY={{ mailcow_api_key_read_only }}
@@ -32,9 +32,9 @@
 
 - name: Ensure API allow from
   ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_ALLOW_FROM)"
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    marker:      "### {mark} ANSIBLE MANAGED BLOCK (API_ALLOW_FROM)"
     insertafter: "#API_ALLOW_FROM="
     block: |
       API_ALLOW_FROM={{ mailcow_api_allow_from }}
@@ -42,9 +42,9 @@
 
 - name: Ensure ACME staging
   ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (LE_STAGING)"
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    marker:      "### {mark} ANSIBLE MANAGED BLOCK (LE_STAGING)"
     insertafter: EOF
     block: |
       LE_STAGING=y

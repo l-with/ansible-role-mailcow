@@ -1,14 +1,14 @@
 ---
 
 galaxy_info:
-  role_name: mailcow
-  description: install mailcow
-  author: l_with
-  license: MIT
-  license_file: LICENSE
+  role_name:           mailcow
+  description:         install mailcow
+  author:              l_with
+  license:             MIT
+  license_file:        LICENSE
   min_ansible_version: 2.9
   platforms:
-  - name: Ubuntu
+  - name:     Ubuntu
     versions: focal
 
 ...
