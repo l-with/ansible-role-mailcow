@@ -9,6 +9,10 @@ Note that this also requires installation of the python libraries `docker` and `
 
 ## Role Variables
 
+### `mailcow_install_path`: `/opt/mailcow-dockerized`
+
+the install path for mailcow
+
 ### `mailcow_hostname`
 
 the host name for mailcow
