@@ -6,14 +6,14 @@ fileignoreconfig:
     - >
       API_KEY_READ_ONLY={{ mailcow_api_key_read_only }}
 
-- filename: templates/mailcow-delete-admin.sh.j2
+- filename: templates/mailcow_delete_default_admin.sh.j2
   allowed_patterns:
     - >
       docker exec -it \$\(docker ps -qf name=mysql-mailcow\) mysql -u\${DBUSER} -p\${DBPASS} \${DBNAME} -e "DELETE FROM admin WHERE username='\${mailcow_default_admin}';"
     - >
       docker exec -it \$\(docker ps -qf name=mysql-mailcow\) mysql -u\${DBUSER} -p\${DBPASS} \${DBNAME} -e "DELETE FROM tfa WHERE username='\${mailcow_default_admin}';"
 
-- filename: templates/mailcow-set-admin.sh.j2
+- filename: templates/mailcow_set_admin.sh.j2
   allowed_patterns:
     - >
       hashed_password=\$\(docker exec -it \$\(docker ps -qf name=dovecot-mailcow\) doveadm pw -s SSHA256 -p \${random} | tr -d '\\r'\)
