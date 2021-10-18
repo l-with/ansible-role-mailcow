@@ -2,29 +2,28 @@
 
 - name: Ensure delete default admin helper script
   ansible.builtin.template:
-    src:  mailcow_delete_default_admin.sh.j2
-    dest: "{{ mailcow_delete_default_admin_script }}"
+    src:   mailcow_delete_default_admin.sh.j2
+    dest:  "{{ mailcow_delete_default_admin_script }}"
     owner: root
     group: root
     mode:  u+x,o-r
 
 - name: Ensure set admin helper script
   ansible.builtin.template:
-    src:  mailcow_set_admin.sh.j2
-    dest: "{{ mailcow_set_admin_script }}"
+    src:   mailcow_set_admin.sh.j2
+    dest:  "{{ mailcow_set_admin_script }}"
     owner: root
     group: root
     mode:  u+x,o-r
 
 - name: Wait for mailcow ready
   ansible.builtin.uri:
-    validate_certs: no
-    url: "https://{{ mailcow_hostname }}/api/#/"
+    url:    "https://{{ mailcow_hostname }}/api/#/"
     method: get
   register: response
-  until: response.status == 200
-  retries: 6
-  delay: 10
+  until:    response.status == 200
+  retries:  6
+  delay:    10
 
 - name: Ensure delete default admin
   ansible.builtin.shell: 
