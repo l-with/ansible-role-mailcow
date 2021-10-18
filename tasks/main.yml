@@ -1,8 +1,7 @@
 ---
 
-- name: Ensure git installed
-  ansible.builtin.apt:
-    package: git
+- name: Ensure prepare dependencies
+  ansible.builtin.include_tasks: dependencies.yml
 
 - name: Ensure mailcow cloned
   ansible.builtin.git:
@@ -12,75 +11,8 @@
     dest:    "{{ mailcow_install_path }}"
     umask:   '022'
 
-- name: Ensure mailcow.conf generated
-  ansible.builtin.shell: ./generate_config.sh
-  environment:
-    MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
-    MAILCOW_TZ: "{{ mailcow_timezone }}"
-  args:
-    executable: /bin/bash
-    chdir: "{{ mailcow_install_path }}"
-    creates: mailcow.conf
-
-- name: Ensure API key
-  ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY)"
-    insertafter: "#API_KEY="
-    block: |
-      API_KEY={{ mailcow_api_key }}
-  when: mailcow_api_key is defined
-
-- name: Ensure API key read.only
-  ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY_READ_ONLY)"
-    insertafter: "#API_KEY_READ_ONLY="
-    block: |
-      API_KEY_READ_ONLY={{ mailcow_api_key_read_only }}
-  when: mailcow_api_key_read_only is defined
-
-- name: Ensure API allow from
-  ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_ALLOW_FROM)"
-    insertafter: "#API_ALLOW_FROM="
-    block: |
-      API_ALLOW_FROM={{ mailcow_api_allow_from }}
-  when: mailcow_api_allow_from is defined
-
-- name: Ensure ACME staging
-  ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: yes
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (LE_STAGING)"
-    insertafter: EOF
-    block: |
-      LE_STAGING=y
-  when: mailcow_acme_staging
-
-- name: Ensure software-properties-common is installed
-  ansible.builtin.apt:
-    name: software-properties-common
-
-- name: Ensure python is installed
-  ansible.builtin.apt:
-    name: python3
-
-- name: Ensure pip is installed
-  ansible.builtin.apt:
-    name: python3-pip
-
-- name: Ensure Python library docker
-  ansible.builtin.pip:
-    name: docker
-
-- name: Ensure Python library docker-compose
-  ansible.builtin.pip:
-    name: docker-compose
+- name: Ensure mailcow config
+  ansible.builtin.include_tasks: mailcow_config.yml
 
 - name: Ensure mailcow is installed with docker-compose
   community.docker.docker_compose:
@@ -88,4 +20,7 @@
     project_src: "{{ mailcow_install_path }}"
     state: "{{ mailcow_docker_compose_state }}"
 
+- name: Ensure mailcow admin
+  ansible.builtin.include_tasks: mailcow_admin.yml
+  
 ...
