@@ -9,4 +9,7 @@ mailcow_docker_compose_state:        present
 
 mailcow_acme_staging: no
 
+mailcow_delete_admin_script: /root/ansible_mailcow_delete_admin.sh
+mailcow_set_admin_script:    /root/ansible_mailcow_set_admin.sh
+
 ...
