@@ -20,6 +20,7 @@
   ansible.builtin.shell: 
     cmd: "{{ mailcow_delete_default_admin_script }} && touch ansible_done_delete_default_admin"
   environment:
+    _MAILCOW_INSTALL_PATH:  "{{ mailcow_install_path }}"
     _MAILCOW_DEFAULT_ADMIN: admin
   args:
     creates: ansible_done_delete_default_admin
@@ -28,6 +29,7 @@
   ansible.builtin.shell: 
     cmd: "{{ mailcow_set_admin_script }} && touch ansible_done_set_admin"
   environment:
+    _MAILCOW_INSTALL_PATH:   "{{ mailcow_install_path }}"
     _MAILCOW_ADMIN_USER:     "{{ mailcow_admin_user }}"
     _MAILCOW_ADMIN_PASSWORD: "{{ mailcow_admin_password }}"
   args:

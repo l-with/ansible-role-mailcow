@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # set DBUSER, DBPASS, DBNAME
-source mailcow.conf
+source ${_MAILCOW_INSTALL_PATH}/mailcow.conf
 
 # get hashed password
 hashed_mailcow_admin_password=$(docker exec -it $(docker ps -qf name=dovecot-mailcow) doveadm pw -s SSHA256 -p ${_MAILCOW_ADMIN_PASSWORD} | tr -d '\r')
