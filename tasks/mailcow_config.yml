@@ -40,6 +40,13 @@
       API_ALLOW_FROM={{ mailcow_api_allow_from }}
   when: mailcow_api_allow_from is defined
 
+- name: Ensure ADDITIONAL_SAN
+  ansible.builtin.lineinfile:
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    regexp:      ADDITIONAL_SAN=
+    line:        "ADDITIONAL_SAN={{ mailcow_additional_san }}"
+
 - name: Ensure ACME staging
   ansible.builtin.blockinfile:
     path:        "{{ mailcow_install_path }}/mailcow.conf"

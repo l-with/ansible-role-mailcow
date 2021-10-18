@@ -2,7 +2,6 @@
 
 mailcow_timezone:     Europe/Berlin
 mailcow_version:      master
-mailcow_install_path: /opt/mailcow-dockerized
 
 mailcow_docker_compose_project_name: mailcowdockerized
 mailcow_docker_compose_state:        present
@@ -11,5 +10,7 @@ mailcow_acme_staging: no
 
 mailcow_delete_default_admin_script: /root/ansible_mailcow_delete_default_admin.sh
 mailcow_set_admin_script:            /root/ansible_mailcow_set_admin.sh
+
+mailcow_additional_san: imap.*,smtp.*,autodiscover.*,autoconfig.*
 
 ...

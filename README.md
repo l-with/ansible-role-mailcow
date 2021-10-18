@@ -64,3 +64,7 @@ the path for the mailcow delete admin script
 ### `mailcow_set_admin_script`: `/root/ansible_mailcow_set_admin.sh`
 
 the path for the mailcow set admin script
+
+### `mailcow_additional_san`: `imap.*,smtp.*,autodiscover.*,autoconfig.*`
+
+the additional domains (SSL Certificate Subject Alternative Names)
