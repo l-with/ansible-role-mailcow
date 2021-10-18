@@ -9,7 +9,9 @@ fileignoreconfig:
 - filename: templates/mailcow-delete-admin.sh.j2
   allowed_patterns:
     - >
-      docker exec -it \$\(docker ps -qf name=mysql-mailcow\) mysql -u\${DBUSER} -p\${DBPASS} \${DBNAME} -e "DELETE FROM admin WHERE username='\${mailcow_admin}';"
+      docker exec -it \$\(docker ps -qf name=mysql-mailcow\) mysql -u\${DBUSER} -p\${DBPASS} \${DBNAME} -e "DELETE FROM admin WHERE username='\${mailcow_default_admin}';"
+    - >
+      docker exec -it \$\(docker ps -qf name=mysql-mailcow\) mysql -u\${DBUSER} -p\${DBPASS} \${DBNAME} -e "DELETE FROM tfa WHERE username='\${mailcow_default_admin}';"
 
 - filename: templates/mailcow-set-admin.sh.j2
   allowed_patterns:

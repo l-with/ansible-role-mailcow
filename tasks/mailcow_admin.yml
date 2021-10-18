@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure delete standard admin helper script
+- name: Ensure delete default admin helper script
   ansible.builtin.template:
     src:  mailcow-delete-admin.sh.j2
     dest: "{{ mailcow_delete_admin_script }}"
