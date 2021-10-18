@@ -16,6 +16,16 @@
     group: root
     mode:  u+x,o-r
 
+- name: Wait for mailcow ready
+  ansible.builtin.uri:
+    validate_certs: no
+    url: "https://{{ mailcow_hostname }}/api/#/"
+    method: get
+  register: response
+  until: response.status == 200
+  retries: 6
+  delay: 10
+
 - name: Ensure delete default admin
   ansible.builtin.shell: 
     cmd: "{{ mailcow_delete_default_admin_script }} && touch ansible_done_delete_default_admin"
