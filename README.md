@@ -29,11 +29,11 @@ the name for the mailcow docker compose project
 
 state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html)
 
-### `mailcow_user`
+### `mailcow_admin_user`
 
 the username of the mailcow administrator
 
-### `mailcow_password`
+### `mailcow_admin_password`
 
 the password for the mailcow administrator
 

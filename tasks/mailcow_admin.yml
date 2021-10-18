@@ -16,14 +16,21 @@
     group: root
     mode:  u+x,o-r
 
-# - name: Ensure delete default admin
-#   ansible.builtin.shell: 
-#     cmd: 
-#   environment:
-#     MAILCOW_ADMIN: admin
-#   args:
-#     executable: /bin/bash
-#     chdir: "{{ mailcow_install_path }}"
-#     creates: mailcow.conf
+- name: Ensure delete default admin
+  ansible.builtin.shell: 
+    cmd: "{{ mailcow_delete_default_admin_script }} && touch ansible_done_delete_default_admin"
+  environment:
+    _MAILCOW_DEFAULT_ADMIN: admin
+  args:
+    creates: ansible_done_delete_default_admin
+
+- name: Ensure delete default admin
+  ansible.builtin.shell: 
+    cmd: "{{ mailcow_set_admin_script }} && touch ansible_done_set_admin"
+  environment:
+    _MAILCOW_ADMIN_USER:     "{{ mailcow_admin_user }}"
+    _MAILCOW_ADMIN_PASSWORD: "{{ mailcow_admin_password }}"
+  args:
+    creates: ansible_done_set_admin
 
 ...
