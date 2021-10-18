@@ -29,6 +29,14 @@ the name for the mailcow docker compose project
 
 state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html)
 
+### `mailcow_user`
+
+the username of the mailcow administrator
+
+### `mailcow_password`
+
+the password for the mailcow administrator
+
 ### `mailcow_api_key`
 
 API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -)
@@ -44,3 +52,11 @@ comma separated list of IPs to allow API access from
 ### `mailcow_acme_staging`: `no`
 
 if ACME staging should be used (s. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#test-against-staging-acme-directory)
+
+### `mailcow_delete_admin_script`: `/root/ansible_mailcow_delete_admin.sh`
+
+the path for the mailcow delete admin script
+
+### `mailcow_set_admin_script`: `/root/ansible_mailcow_set_admin.sh`
+
+the path for the mailcow set admin script
