@@ -25,7 +25,7 @@
   args:
     creates: ansible_done_delete_default_admin
 
-- name: Ensure delete default admin
+- name: Ensure set admin
   ansible.builtin.shell: 
     cmd: "{{ mailcow_set_admin_script }} && touch ansible_done_set_admin"
   environment:
