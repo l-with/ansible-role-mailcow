@@ -23,4 +23,7 @@
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml
 
+- name: Ensure mailcow Rspamd UI password
+  ansible.builtin.include_tasks: mailcow_rspamd_password.yml
+
 ...

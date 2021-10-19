@@ -68,3 +68,11 @@ the path for the mailcow set admin script
 ### `mailcow_additional_san`: `imap.*,smtp.*,autodiscover.*,autoconfig.*`
 
 the additional domains (SSL Certificate Subject Alternative Names)
+
+### `mailcow_rspamd_ui_password`
+
+the password for the mailcow Rspamd UI
+
+### `mailcow_set_rspamd_ui_password_script`: `/root/ansible_set_rspamd_ui_password.sh`
+
+the path for the mailcow set Rspamd UI password script

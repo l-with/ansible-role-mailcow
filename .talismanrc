@@ -22,3 +22,24 @@ fileignoreconfig:
   allowed_patterns:
     - >
       _MAILCOW_ADMIN_PASSWORD: "{{ \w+ }}"
+
+- filename: tasks/mailcow_rspamd_password.yml
+  ignore_detectors: [filename]
+
+- filename: templates/mailcow_set_rspamd_ui_password.sh.j2
+  ignore_detectors: [filename]
+  allowed_patterns:
+    - >
+      hashed_mailcow_rspamd_ui_password=\$\(docker exec -it \$\(docker ps -qf name=dovecot-rspamd-mailcow\) rspamadm pw -p \${_MAILCOW_RSPAMD_UI_PASSWORD}"\)
+    - >
+      echo enable_password = \\"\$hashed_mailcow_rspamd_ui_password\\"\\; >\${_MAILCOW_INSTALL_PATH}/data/conf/rspamd/override.d/worker-controller-password.inc
+
+- filename: defaults/main.yml
+  allowed_patterns:
+    - >
+      mailcow_set_rspamd_ui_password_script: /root/ansible_set_rspamd_ui_password.sh
+
+- filename: README.md
+  allowed_patterns:
+    - >
+      ### `mailcow_set_rspamd_ui_password_script`: `/root/ansible_set_rspamd_ui_password.sh`
