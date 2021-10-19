@@ -1,5 +1,6 @@
 ---
 
+mailcow_install_path: /opt/mailcow-dockerized
 mailcow_timezone:     Europe/Berlin
 mailcow_version:      master
 
