@@ -53,6 +53,10 @@ API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -)
 
 comma separated list of IPs to allow API access from
 
+### `mailcow_acme_out_of_the_box`: `yes`
+
+if the "acme-mailcow" container will try to obtain a LE certificate.
+
 ### `mailcow_acme_staging`: `no`
 
 if ACME staging should be used (s. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#test-against-staging-acme-directory)

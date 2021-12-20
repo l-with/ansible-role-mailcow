@@ -7,7 +7,8 @@ mailcow_version:      master
 mailcow_docker_compose_project_name: mailcowdockerized
 mailcow_docker_compose_state:        present
 
-mailcow_acme_staging: no
+mailcow_acme_out_of_the_box: yes
+mailcow_acme_staging:        no
 
 mailcow_delete_default_admin_script:   /root/ansible_mailcow_delete_default_admin.sh
 mailcow_set_admin_script:              /root/ansible_mailcow_set_admin.sh

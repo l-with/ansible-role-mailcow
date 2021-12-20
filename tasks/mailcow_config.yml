@@ -57,4 +57,12 @@
       LE_STAGING=y
   when: mailcow_acme_staging
 
+- name: Ensure Skip Let's Encrypt
+  ansible.builtin.lineinfile:
+    path:        "{{ mailcow_install_path }}/mailcow.conf"
+    backup:      yes
+    regexp:      SKIP_LETS_ENCRYPT=
+    line:        SKIP_LETS_ENCRYPT=y
+  when: not mailcow_acme_out_of_the_box
+
 ...
