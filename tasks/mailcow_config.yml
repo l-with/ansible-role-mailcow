@@ -6,7 +6,6 @@
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
     MAILCOW_TZ: "{{ mailcow_timezone }}"
   args:
-    executable: /bin/bash
     chdir: "{{ mailcow_install_path }}"
     creates: mailcow.conf
 

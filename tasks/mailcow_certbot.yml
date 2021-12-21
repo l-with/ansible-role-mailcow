@@ -8,4 +8,8 @@
     group: root
     mode: u+x,o-r
 
+- name: Ensure mailcow certbot post-hook script executed
+  ansible.builtin.cmd:
+    cmd: "{{ mailcow_certbot_post_hook_script }}"
+
 ...
