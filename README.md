@@ -53,9 +53,14 @@ API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -)
 
 comma separated list of IPs to allow API access from
 
-### `mailcow_acme_out_of_the_box`: `yes`
+### `mailcow_acme`: `out-of-the-box`
 
-if the "acme-mailcow" container will try to obtain a LE certificate.
+the way the Let's Encrypt certificate ist obtained
+
+* `out-the-box`:
+  The "acme-mailcow" container will try to obtain a LE certificate.
+* `certbot`:
+  The certbot cronjob will manage Let's Encrypt certificates
 
 ### `mailcow_acme_staging`: `no`
 

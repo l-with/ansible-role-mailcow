@@ -26,4 +26,8 @@
 - name: Ensure mailcow Rspamd UI password
   ansible.builtin.include_tasks: mailcow_rspamd_password.yml
 
+- name: Ensure certbot triggers post-hook script
+  ansible.builtin.include_tasks:  mailcow_certbot.yml
+  when: mailcow_acme == 'certbot'
+
 ...

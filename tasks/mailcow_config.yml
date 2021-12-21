@@ -63,6 +63,6 @@
     backup:      yes
     regexp:      SKIP_LETS_ENCRYPT=
     line:        SKIP_LETS_ENCRYPT=y
-  when: not mailcow_acme_out_of_the_box
+  when: mailcow_acme != 'out-of-the-box'
 
 ...
