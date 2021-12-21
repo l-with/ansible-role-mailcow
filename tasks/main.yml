@@ -5,11 +5,11 @@
 
 - name: Ensure mailcow cloned
   ansible.builtin.git:
-    repo:    https://github.com/mailcow/mailcow-dockerized.git
+    repo: https://github.com/mailcow/mailcow-dockerized.git
     version: "{{ mailcow_version }}"
-    update:  no
-    dest:    "{{ mailcow_install_path }}"
-    umask:   '022'
+    update: false
+    dest: "{{ mailcow_install_path }}"
+    umask: '022'
 
 - name: Ensure mailcow config
   ansible.builtin.include_tasks: mailcow_config.yml
@@ -17,8 +17,8 @@
 - name: Ensure mailcow is installed with docker-compose
   community.docker.docker_compose:
     project_name: "{{ mailcow_docker_compose_project_name }}"
-    project_src:  "{{ mailcow_install_path }}"
-    state:        "{{ mailcow_docker_compose_state }}"
+    project_src: "{{ mailcow_install_path }}"
+    state: "{{ mailcow_docker_compose_state }}"
 
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml
@@ -27,7 +27,7 @@
   ansible.builtin.include_tasks: mailcow_rspamd_password.yml
 
 - name: Ensure certbot triggers post-hook script
-  ansible.builtin.include_tasks:  mailcow_certbot.yml
+  ansible.builtin.include_tasks: mailcow_certbot.yml
   when: mailcow_acme == 'certbot'
 
 ...

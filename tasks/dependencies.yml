@@ -23,5 +23,5 @@
 - name: Ensure Python library docker-compose
   ansible.builtin.pip:
     name: docker-compose
-    
+
 ...
