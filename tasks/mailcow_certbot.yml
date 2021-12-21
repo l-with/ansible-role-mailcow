@@ -9,7 +9,9 @@
     mode: u+x,o-r
 
 - name: Ensure mailcow certbot post-hook script executed
-  ansible.builtin.command:
-    cmd: "{{ mailcow_certbot_post_hook_script }}"
+  ansible.builtin.shell:
+    cmd: "{{ mailcow_certbot_post_hook_script }} && touch ansible_done_certbot_post_hook_script"
+  args:
+    creates: ansible_done_certbot_post_hook_script
 
 ...
