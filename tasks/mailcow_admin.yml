@@ -18,8 +18,9 @@
 
 - name: Wait for mailcow ready
   ansible.builtin.uri:
-    url:    "https://{{ mailcow_hostname }}/api/#/"
-    method: get
+    url:            "https://{{ mailcow_hostname }}/api/#/"
+    validate_certs: no
+    method:         get
   register: response
   until:    response.status == 200
   retries:  30
