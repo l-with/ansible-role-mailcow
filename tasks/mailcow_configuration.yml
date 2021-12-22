@@ -2,7 +2,7 @@
 
 - name: Ensure greylisting off
   ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}data/conf/rspamd/local.d/greylist.conf"
+    path: "{{ mailcow_install_path }}/data/conf/rspamd/local.d/greylist.conf"
     backup: true
     marker: "### {mark} ANSIBLE MANAGED BLOCK (greylisting off)"
     block: |
