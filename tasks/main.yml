@@ -11,8 +11,8 @@
     dest: "{{ mailcow_install_path }}"
     umask: '022'
 
-- name: Ensure mailcow config
-  ansible.builtin.include_tasks: mailcow_config.yml
+- name: Ensure mailcow.conf
+  ansible.builtin.include_tasks: mailcow_conf.yml
 
 - name: Ensure mailcow is installed with docker-compose
   community.docker.docker_compose:
@@ -29,5 +29,9 @@
 - name: Ensure certbot triggers post-hook script
   ansible.builtin.include_tasks: mailcow_certbot.yml
   when: mailcow_acme == 'certbot'
+
+- name: Ensure mailcow configuration
+  ansible.builtin.include_tasks: mailcow_configuration.yml
+
 
 ...
