@@ -85,3 +85,7 @@ the password for the mailcow Rspamd UI
 ### `mailcow_set_rspamd_ui_password_script`: `/root/ansible_set_rspamd_ui_password.sh`
 
 the path for the mailcow set Rspamd UI password script
+
+### `mailcow_greylisting`: `true`
+
+if greylisting should be active
