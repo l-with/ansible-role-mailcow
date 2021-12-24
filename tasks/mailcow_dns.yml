@@ -1,0 +1,79 @@
+---
+
+- name: Ensure MX record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '@'
+    dns_record_type: 'MX'
+    dns_record_value: '10 {{ mailcow_hostname }}.'
+  when: mailcow_dns_mx
+
+- name: Ensure autoconfig record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: 'autoconfig'
+    dns_record_type: 'CNAME'
+    dns_record_value: 'mail'
+  when: mailcow_dns_autoconfig
+
+- name: Ensure autodiscover record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: 'autodiscover'
+    dns_record_type: 'CNAME'
+    dns_record_value: 'mail'
+  when: mailcow_dns_autodiscover
+
+- name: Ensure autodiscover SRV record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '_autodiscover._tcp'
+    dns_record_type: 'SRV'
+    dns_record_value: "10 10 443 mail.{{ mailcow_domain }}."
+  when: mailcow_dns_autodiscover
+
+- name: Ensure SPF record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '@'
+    dns_record_type: 'TXT'
+    dns_record_value: "\"v=spf1 +a +mx -all\""
+  when: mailcow_dns_SPF
+
+- name: Block for TLSA record
+  block:
+    - name: Get TLSA hash
+      ansible.builtin.shell:
+        cmd: >
+          openssl x509 -in {{ mailcow_install_path }}/data/assets/ssl/cert.pem -pubkey -noout 
+            | openssl pkey -pubin -outform DER 
+            | openssl sha256 
+            | cut --delimiter=' ' -f 2
+      register: _mailcow_tlsa_hash_result
+      changed_when: false
+
+    - name: Set fact _mailcow_tlsa_hash
+      ansible.builtin.set_fact:
+        _mailcow_tlsa_hash: "{{ _mailcow_tlsa_hash_result.stdout }}"
+
+    - name: Ensure TLSA record
+      ansible.builtin.include_role:
+        name: dns
+      vars:
+        dns_zone_name: "{{ mailcow_domain }}"
+        dns_record_name: "_25._tcp.mail"
+        dns_record_type: 'TLSA'
+        dns_record_value: "3 1 1 {{ _mailcow_tlsa_hash }}"
+  when: mailcow_dns_TLSA
+
+...
