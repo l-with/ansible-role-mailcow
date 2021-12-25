@@ -1,5 +1,9 @@
 ---
 
+- name: Set fact mailco API url
+  ansible.builtin.set_fact:
+    _mailcow_api_url: "https://{{ mailcow_hostname }}/api/v1"
+
 - name: Ensure domain in mailcow
   ansible.builtin.uri:
     url: "{{ _mailcow_api_url }}/add/domain"
