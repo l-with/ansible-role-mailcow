@@ -1,9 +1,5 @@
 ---
 
-- name: Print mailcow_dns_mx
-  ansible.builtin.debug:
-    msg: "mailcow_dns_mx: {{ mailcow_dns_mx }}"
-
 - name: Ensure MX record
   ansible.builtin.include_role:
     name: dns
