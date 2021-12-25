@@ -46,8 +46,9 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | group | variable | default | description |
 | --- | --- | ---| --- |
 | DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
-| DNS | `mailcow_dns_mx` | `false` | if the MX record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_autoconfig` | `false` | if the autoconfig record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_autodiscover` | `false` | if the autodiscover records for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_spf` | `false` | if the SPF record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_tlsa` | `false` | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns` | `false` | defines the default for `mailcow_dns_*` |
+| DNS | `mailcow_dns_mx` | | if the MX record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_autoconfig` | | if the autoconfig record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_spf` | | if the SPF record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_tlsa` | | if the TLSA record for `mailcow_domain` should be created |
