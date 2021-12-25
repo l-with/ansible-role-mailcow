@@ -49,5 +49,5 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | DNS | `mailcow_dns_mx` | `false` | if the MX record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autoconfig` | `false` | if the autoconfig record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autodiscover` | `false` | if the autodiscover records for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_SPF` | `false` | if the SPF record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_TLSA` | `false` | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_spf` | `false` | if the SPF record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_tlsa` | `false` | if the TLSA record for `mailcow_domain` should be created |
