@@ -1,0 +1,30 @@
+---
+
+- name: Ensure domain in mailcow
+  ansible.builtin.uri:
+    url: "{{ _mailcow_api_url }}/add/domain"
+    body_format: json
+    headers:
+      X-API-Key: "{{ mailcow_api_key }}"
+    method: post
+    body:
+      active: 1
+      aliases: "{{ mailcow_domain_max_aliases }}"
+      backupmx: 0
+      defquota: "{{ mailcow_domain_default_mailbox_quota }}"
+      description: "{{ mailcow_domain_description }}"
+      domain: "{{ mailcow_domain }}"
+      mailboxes: "{{ mailcow_domain_max_mailboxes }}"
+      maxquota: "{{ mailcow_domain_max_mailbox_quota }}"
+      quota: "{{ mailcow_domain_quota }}"
+      relay_all_recipients: 0
+      rl_frame: "s"
+      rl_value: 10
+      restart_sogo: 10
+  register: _response
+
+- name: Print _response
+  ansible.builtin.debug:
+    msg: "_response: {{ _response }}"
+
+...

@@ -33,7 +33,7 @@ Note that this also requires installation of the python libraries `docker` and `
 | https | `mailcow_additional_san` | `imap.*,smtp.*,autodiscover.*,autoconfig.*` | the additional domains (SSL Certificate Subject Alternative Names) |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 
-### DNS
+### Domain and DNS
 If DNS entries should be managed, there has to be a role `dns` with the following parameters:
 
 | parameter | description |
@@ -45,8 +45,14 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 
 | group | variable | default | description |
 | --- | --- | ---| --- |
-| DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
-| DNS | `mailcow_dns` | `false` | defines the default for `mailcow_dns_*` |
+| Doamin/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
+| Domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
+| Domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
+| Domain | `mailcow_domain_max_mailboxes` | 20 | the maximum number of aliases for the `mailcow_domain` |
+| Domain | `mailcow_domain_default_mailbox_quota` | 2048 | the default mailbox quota for the `mailcow_domain` |
+| Domain | `mailcow_domain_max_mailbox_quota` | 4096 | the maximum for mailbox quota for the `mailcow_domain` |
+| Domain | `mailcow_domain_quota` | 40960 | the quota for the `mailcow_domain` |
+| DNS | `mailcow_dns` | `false` | defines the default for `mailcow_dns_*`, <br /> for creating DNS entries a defined `mailcow_domain` is required |
 | DNS | `mailcow_dns_mx` | | if the MX record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autoconfig` | | if the autoconfig record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |

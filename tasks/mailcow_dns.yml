@@ -7,6 +7,7 @@
     - _mailcow_dns_autodiscover
     - _mailcow_dns_spf
     - _mailcow_dns_tlsa
+    - _mailcow_dns_dkim
 
 - name: Ensure MX record
   ansible.builtin.include_role:
@@ -83,5 +84,51 @@
         dns_record_type: 'TLSA'
         dns_record_value: "3 1 1 {{ _mailcow_tlsa_hash }}"
   when: _mailcow_dns_tlsa
+
+- name: Block for DKIM record
+  block:
+    - name: Generate DKIM
+      ansible.builtin.uri:
+        url: "{{ _mailcow_api_url }}/add/dkim"
+        body_format: json
+        headers:
+          X-API-Key: "{{ mailcow_api_key }}"
+        method: post
+        body:
+          dkim_selector: "dkim"
+          domains: "{{ mailcow_domain }}"
+          key_size: 2048
+      register: _response
+
+    - name: Print _response
+      ansible.builtin.debug:
+        msg: "_response: {{ _response }}"
+
+    - name: Get DKIM
+      ansible.builtin.uri:
+        url: "{{ _mailcow_api_url }}/get/dkim/{{ mailcow_domain }}"
+        body_format: json
+        headers:
+          X-API-Key: "{{ mailcow_api_key }}"
+        method: get
+      register: _response
+
+    - name: Print _response
+      ansible.builtin.debug:
+        msg: "_response: {{ _response }}"
+
+    - name: Set fact _mailcow_dkim
+      ansible.builtin.set_fact:
+        _mailcow_dkim_txt: "{{ _response.json.dkim_txt }}"
+
+    - name: Ensure DKIM record
+      ansible.builtin.include_role:
+        name: dns
+      vars:
+        dns_zone_name: "{{ mailcow_domain }}"
+        dns_record_name: "dkim._domainkey"
+        dns_record_type: 'TXT'
+        dns_record_value: "{{ _mailcow_dkim_txt }}"
+  when: _mailcow_dns_dkim
 
 ...
