@@ -54,11 +54,11 @@
   block:
     - name: Get TLSA hash
       ansible.builtin.shell:
-        cmd: >
-          openssl x509 -in {{ mailcow_install_path }}/data/assets/ssl/cert.pem -pubkey -noout
-            | openssl pkey -pubin -outform DER
-            | openssl sha256
-            | cut --delimiter=' ' -f 2
+        cmd: >-
+          openssl x509 -in {{ mailcow_install_path }}/data/assets/ssl/cert.pem -pubkey -noout |
+            openssl pkey -pubin -outform DER |
+            openssl sha256 |
+            cut --delimiter=' ' -f 2
       register: _mailcow_tlsa_hash_result
       changed_when: false
 
