@@ -1,4 +1,5 @@
 ---
+- name: Ensure mailcow_dns_true 
 
 - name: Ensure MX record
   ansible.builtin.include_role:
@@ -48,7 +49,7 @@
     dns_record_name: '@'
     dns_record_type: 'TXT'
     dns_record_value: "\"v=spf1 +a +mx -all\""
-  when: mailcow_dns_SPF
+  when: mailcow_dns_spf
 
 - name: Block for TLSA record
   block:
@@ -74,6 +75,6 @@
         dns_record_name: "_25._tcp.mail"
         dns_record_type: 'TLSA'
         dns_record_value: "3 1 1 {{ _mailcow_tlsa_hash }}"
-  when: mailcow_dns_TLSA
+  when: mailcow_dns_tlsa
 
 ...
