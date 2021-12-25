@@ -1,6 +1,6 @@
 ---
 - name: Ensure mailcow_dns_* default
-  ansible.builtin.set_fact: {"{{ item }}": "{{ lookup('vars', item ) | default(mail_cow_dns)}}"}
+  ansible.builtin.set_fact: {"{{ item }}": "{{ lookup('vars', item | regex_replace('^_', '') ) | default(mail_cow_dns)}}"}
   loop:
     - _mailcow_dns_mx
     - _mailcow_dns_autoconfig
