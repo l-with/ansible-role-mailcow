@@ -18,6 +18,7 @@ mailcow_certbot_post_hook_script: /root/ansible_mailcow_certbot_post_hook.sh
 mailcow_additional_san: imap.*,smtp.*,autodiscover.*,autoconfig.*
 
 mailcow_greylisting: true
+mailcow_mynetworks: []
 
 mailcow_domain_description: "{{ lookup('vars', 'mailcow_domain') | default('domain description') }}"
 mailcow_domain_max_aliases: 400

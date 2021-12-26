@@ -9,4 +9,12 @@
       enable = false;
   when: not mailcow_greylisting
 
+- name: Ensure mynetworks
+  ansible.builtin.lineinfile:
+    path: "{{ mailcow_install_path }}/data/conf/postfix/extra.cf"
+    backup: true
+    regexp: "mynetworks ="
+    line: "mynetworks = {{ mailcow_mynetworks | join(' ') }}"
+  when: 0 <(mailcow_mynetworks | length)
+
 ...
