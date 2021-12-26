@@ -53,7 +53,7 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | Domain | `mailcow_domain_default_mailbox_quota` | 2048 | the default mailbox quota for the `mailcow_domain` |
 | Domain | `mailcow_domain_max_mailbox_quota` | 4096 | the maximum for mailbox quota for the `mailcow_domain` |
 | Domain | `mailcow_domain_quota` | 40960 | the quota for the `mailcow_domain` |
-| DNS | `mailcow_dns` | `false` | defines the default for `mailcow_dns_*`, <br /> for creating DNS entries a defined `mailcow_domain` is required |
+| DNS | `mailcow_dns` | `true` | defines the default for `mailcow_dns_*`, <br /> for creating DNS entries a defined `mailcow_domain` is required |
 | DNS | `mailcow_dns_mx` | | if the MX record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autoconfig` | | if the autoconfig record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |

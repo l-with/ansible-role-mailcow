@@ -27,12 +27,12 @@ mailcow_domain_default_mailbox_quota: 2048
 mailcow_domain_max_mailbox_quota: 4096
 mailcow_domain_quota: 40960
 
-mailcow_dns: false
-mailcow_dns_mx: false
-mailcow_dns_autoconfig: false
-mailcow_dns_autodiscover: false
-mailcow_dns_spf: false
-mailcow_dns_tlsa: false
-mailcow_dns_dkim: false
+mailcow_dns: true
+mailcow_dns_mx: true
+mailcow_dns_autoconfig: true
+mailcow_dns_autodiscover: true
+mailcow_dns_spf: true
+mailcow_dns_tlsa: true
+mailcow_dns_dkim: true
 
 ...
