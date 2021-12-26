@@ -32,7 +32,7 @@ Note that this also requires installation of the python libraries `docker` and `
 | https | `mailcow_acme_staging` | `no` | if ACME staging should be used (s. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#test-against-staging-acme-directory) |
 | https | `mailcow_additional_san` | `imap.*,smtp.*,autodiscover.*,autoconfig.*` | the additional domains (SSL Certificate Subject Alternative Names) |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
-| configuration | `mailcow_mynetworks` | `[]` | list of subnetwork masks to add to `mynetworks` in postfix |
+| configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
 
 ### Domain and DNS
 If DNS entries should be managed, there has to be a role `dns` with the following parameters:
