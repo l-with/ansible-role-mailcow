@@ -19,4 +19,19 @@ mailcow_additional_san: imap.*,smtp.*,autodiscover.*,autoconfig.*
 
 mailcow_greylisting: true
 
+mailcow_domain_description: "{{ lookup('vars', 'mailcow_domain') | default('domain description') }}"
+mailcow_domain_max_aliases: 400
+mailcow_domain_max_mailboxes: 20
+mailcow_domain_default_mailbox_quota: 2048
+mailcow_domain_max_mailbox_quota: 4096
+mailcow_domain_quota: 40960
+
+mailcow_dns: false
+mailcow_dns_mx: false
+mailcow_dns_autoconfig: false
+mailcow_dns_autodiscover: false
+mailcow_dns_spf: false
+mailcow_dns_tlsa: false
+mailcow_dns_dkim: false
+
 ...
