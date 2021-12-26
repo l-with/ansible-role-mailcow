@@ -1,4 +1,5 @@
 ---
+
 - name: Ensure mailcow_dns_* default
   ansible.builtin.set_fact: {"{{ item }}": "{{ lookup('vars', item | regex_replace('^_', '') ) | default(mail_cow_dns)}}"}
   loop:
