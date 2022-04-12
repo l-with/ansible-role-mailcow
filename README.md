@@ -4,19 +4,23 @@ Install mailcow with [mailcow-dockerized]('https://github.com/mailcow/mailcow-do
 
 ## Collection dependencies
 
-The role depends on the 
+The role depends on the
+
 - collection community.docker
-- ansible role 
+- ansible role dns
+
 Note that this also requires installation of the python libraries `docker` and `docker-compose`.
 
 ## Role Variables
 
+<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD034 -->
 | group | variable | default | description |
 | --- | --- | ---| --- |
 | basic | `mailcow_hostname` | | the host name for mailcow |
 | basic | `mailcow_install_path` | `/opt/mailcow-dockerized` | the install path for mailcow |
 | basic | `mailcow_timezone` | `Europe/Berlin` | the time zone for mailcow |
-| basic | `mailcow_version` | `master` | the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/| basic git_module.html#parameter-version) to checkout |
+| basic | `mailcow_version` | `master` | the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameter-version) to checkout |
 | basic | `mailcow_docker_compose_project_name` | `mailcow_dockerized` | the name for the mailcow docker compose project |
 | basic | `mailcow_docker_compose_state` | `present` | state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html) |
 | security | `mailcow_admin_user` | | the username of the mailcow administrator |
@@ -33,8 +37,11 @@ Note that this also requires installation of the python libraries `docker` and `
 | https | `mailcow_additional_san` | `imap.*,smtp.*,autodiscover.*,autoconfig.*` | the additional domains (SSL Certificate Subject Alternative Names) |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 | configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
+<!-- markdownlint-enable MD033 -->
+<!-- markdownlint-enable MD034 -->
 
 ### Domain and DNS
+
 If DNS entries should be managed, there has to be a role `dns` with the following parameters:
 
 | parameter | description |
