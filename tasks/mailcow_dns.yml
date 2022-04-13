@@ -10,194 +10,126 @@
     - _mailcow_dns_tlsa
     - _mailcow_dns_dkim
 
-- name: Ensure initialize _mailcow_dns_records
-  ansible.builtin.set_fact:
-    _mailcow_dns_records: []
-
-- name: MX record
-  block:
-
-  - name: Set fact _mailcow_dns_record with MX record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      '@'
-        # ttl:
-        type:      'MX'
-        value:     '10 {{ mailcow_hostname }}.'
-
-  - name: Ensure MX record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+- name: Ensure MX record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '@'
+    dns_record_type: 'MX'
+    dns_record_value: '10 {{ mailcow_hostname }}.'
   when: _mailcow_dns_mx
 
-- name: autoconfig record
-  block:
-
-  - name: Set fact _mailcow_dns_record with autoconfig record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      'autoconfig'
-        # ttl:    
-        type:      'CNAME'
-        value:     'mail'
-
-  - name: Ensure autoconfig record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+- name: Ensure autoconfig record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: 'autoconfig'
+    dns_record_type: 'CNAME'
+    dns_record_value: 'mail'
   when: _mailcow_dns_autoconfig
 
-- name: autodiscover record
-  block:
-
-  - name: Set fact _mailcow_dns_record with autodiscover record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      'autodiscover'
-        # ttl:    
-        type:      'CNAME'
-        value:     'mail'
-
-  - name: Ensure autodiscover record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+- name: Ensure autodiscover record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: 'autodiscover'
+    dns_record_type: 'CNAME'
+    dns_record_value: 'mail'
   when: _mailcow_dns_autodiscover
 
-- name: autodiscover SRV record
-  block:
-
-  - name: Set fact _mailcow_dns_record with autodiscover SRV record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      '_autodiscover._tcp'
-        # ttl:    
-        type:      'SRV'
-        value:     "10 10 443 mail.{{ mailcow_domain }}."
-
-  - name: Ensure autodiscover SRV record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+- name: Ensure autodiscover SRV record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '_autodiscover._tcp'
+    dns_record_type: 'SRV'
+    dns_record_value: "10 10 443 mail.{{ mailcow_domain }}."
   when: _mailcow_dns_autodiscover
 
-- name: SPF record
-  block:
-
-  - name: Set fact _mailcow_dns_record with SPF record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      '@'
-        # ttl:    
-        type:      'TXT'
-        value:     "\"v=spf1 +a +mx -all\""
-
-  - name: Ensure SPF record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+- name: Ensure SPF record
+  ansible.builtin.include_role:
+    name: dns
+  vars:
+    dns_zone_name: "{{ mailcow_domain }}"
+    dns_record_name: '@'
+    dns_record_type: 'TXT'
+    dns_record_value: "\"v=spf1 +a +mx -all\""
   when: _mailcow_dns_spf
 
 - name: Block for TLSA record
   block:
+    - name: Get TLSA hash
+      ansible.builtin.shell:
+        cmd: >-
+          openssl x509 -in {{ mailcow_install_path }}/data/assets/ssl/cert.pem -pubkey -noout |
+            openssl pkey -pubin -outform DER |
+            openssl sha256 |
+            cut --delimiter=' ' -f 2
+      register: _mailcow_tlsa_hash_result
+      changed_when: false
 
-  - name: Get TLSA hash
-    ansible.builtin.shell:
-      cmd: >-
-        openssl x509 -in {{ mailcow_install_path }}/data/assets/ssl/cert.pem -pubkey -noout |
-          openssl pkey -pubin -outform DER |
-          openssl sha256 |
-          cut --delimiter=' ' -f 2
-    register: _mailcow_tlsa_hash_result
-    changed_when: false
+    - name: Set fact _mailcow_tlsa_hash
+      ansible.builtin.set_fact:
+        _mailcow_tlsa_hash: "{{ _mailcow_tlsa_hash_result.stdout }}"
 
-  - name: Set fact _mailcow_tlsa_hash
-    ansible.builtin.set_fact:
-      _mailcow_tlsa_hash: "{{ _mailcow_tlsa_hash_result.stdout }}"
-
-  - name: Set fact _mailcow_dns_record with TLSA record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      "_25._tcp.mail"
-        # ttl:    
-        type:      'TLSA'
-        value:     "3 1 1 {{ _mailcow_tlsa_hash }}"
-
-  - name: Ensure TLSA record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+    - name: Ensure TLSA record
+      ansible.builtin.include_role:
+        name: dns
+      vars:
+        dns_zone_name: "{{ mailcow_domain }}"
+        dns_record_name: "_25._tcp.mail"
+        dns_record_type: 'TLSA'
+        dns_record_value: "3 1 1 {{ _mailcow_tlsa_hash }}"
   when: _mailcow_dns_tlsa
 
 - name: Block for DKIM record
   block:
+    - name: Generate DKIM
+      ansible.builtin.uri:
+        url: "{{ _mailcow_api_url }}/add/dkim"
+        body_format: json
+        headers:
+          X-API-Key: "{{ mailcow_api_key }}"
+        method: post
+        body:
+          dkim_selector: "dkim"
+          domains: "{{ mailcow_domain }}"
+          key_size: 2048
+      register: _response
 
-  - name: Generate DKIM
-    ansible.builtin.uri:
-      url: "{{ _mailcow_api_url }}/add/dkim"
-      body_format: json
-      headers:
-        X-API-Key: "{{ mailcow_api_key }}"
-      method: post
-      body:
-        dkim_selector: "dkim"
-        domains: "{{ mailcow_domain }}"
-        key_size: 2048
-    register: _response
+    - name: Print _response
+      ansible.builtin.debug:
+        msg: "_response: {{ _response }}"
 
-  - name: Print _response
-    ansible.builtin.debug:
-      msg: "_response: {{ _response }}"
+    - name: Get DKIM
+      ansible.builtin.uri:
+        url: "{{ _mailcow_api_url }}/get/dkim/{{ mailcow_domain }}"
+        body_format: json
+        headers:
+          X-API-Key: "{{ mailcow_api_key }}"
+        method: get
+      register: _response
 
-  - name: Get DKIM
-    ansible.builtin.uri:
-      url: "{{ _mailcow_api_url }}/get/dkim/{{ mailcow_domain }}"
-      body_format: json
-      headers:
-        X-API-Key: "{{ mailcow_api_key }}"
-      method: get
-    register: _response
+    - name: Print _response
+      ansible.builtin.debug:
+        msg: "_response: {{ _response }}"
 
-  - name: Print _response
-    ansible.builtin.debug:
-      msg: "_response: {{ _response }}"
+    - name: Set fact _mailcow_dkim
+      ansible.builtin.set_fact:
+        _mailcow_dkim_txt: "{{ _response.json.dkim_txt }}"
 
-  - name: Set fact _mailcow_dkim
-    ansible.builtin.set_fact:
-      _mailcow_dkim_txt: "{{ _response.json.dkim_txt }}"
-
-  - name: Set fact _mailcow_dns_record with DKIM record
-    ansible.builtin.set_fact:
-      _mailcow_dns_record:
-        zone_name: "{{ mailcow_domain }}"
-        name:      "dkim._domainkey"
-        # ttl:    
-        type:      'TXT'
-        value:     "{{ _mailcow_dkim_txt }}"
-
-  - name: Ensure DKIM record in _mailcow_dns_records
-    ansible.built.set_fact:
-      _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
-
+    - name: Ensure DKIM record
+      ansible.builtin.include_role:
+        name: dns
+      vars:
+        dns_zone_name: "{{ mailcow_domain }}"
+        dns_record_name: "dkim._domainkey"
+        dns_record_type: 'TXT'
+        dns_record_value: "{{ _mailcow_dkim_txt }}"
   when: _mailcow_dns_dkim
-
-- name: Ensure DNS _mailcow_dns_records
-  ansible.builtin.include_role:
-    name: dns
-  vars:
-    dns_zone_name:    "{{ _mailcow_dns_record.zone_name }}"
-    dns_record_name:  "{{ _mailcow_dns_record.name }}"
-    dns_record_type:  "{{ _mailcow_dns_record.type }}"
-    dns_record_value: "{{ _mailcow_dns_record.value }}"
-  loop: _mailcow_dns_records
-  loop_control:
-    loop_var: _mailcow_dns_record
 
 ...
