@@ -188,6 +188,10 @@
 
   when: _mailcow_dns_dkim
 
+- name: Print _mailcow_dns_records
+  ansible.builtin.debug:
+    msg: "_mailcow_dns_records: {{ _mailcow_dns_records }}"
+    
 - name: Ensure DNS _mailcow_dns_records
   ansible.builtin.include_role:
     name: dns
