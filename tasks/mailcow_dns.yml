@@ -155,6 +155,7 @@
   - name: Print _response
     ansible.builtin.debug:
       msg: "_response: {{ _response }}"
+    when: mailcow_dns_debug
 
   - name: Get DKIM
     ansible.builtin.uri:
@@ -168,6 +169,7 @@
   - name: Print _response
     ansible.builtin.debug:
       msg: "_response: {{ _response }}"
+    when: mailcow_dns_debug
 
   - name: Set fact _mailcow_dkim
     ansible.builtin.set_fact:
@@ -188,6 +190,11 @@
 
   when: _mailcow_dns_dkim
 
+- name: Print _mailcow_dns_records
+  ansible.builtin.debug:
+    msg: "_mailcow_dns_records: {{ _mailcow_dns_records }}"
+  when: mailcow_dns_debug
+
 - name: Ensure DNS _mailcow_dns_records
   ansible.builtin.include_role:
     name: dns
@@ -200,4 +207,8 @@
   loop_control:
     loop_var: _mailcow_dns_record
 
+- name: Set fact mailcow_dns_records
+  ansible.builtin.set_fact:
+    mailcow_dns_records: "{{ _mailcow_dns_records }}"
+    
 ...

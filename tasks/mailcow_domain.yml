@@ -30,5 +30,6 @@
 - name: Print _response
   ansible.builtin.debug:
     msg: "_response: {{ _response }}"
+  when: mailcow_dns_debug
 
 ...

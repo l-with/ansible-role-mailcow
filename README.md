@@ -66,3 +66,4 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_spf` | | if the SPF record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_tlsa` | | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_debug` | `false` | if debug information should be printed |
