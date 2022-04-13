@@ -191,7 +191,7 @@
 - name: Print _mailcow_dns_records
   ansible.builtin.debug:
     msg: "_mailcow_dns_records: {{ _mailcow_dns_records }}"
-    
+
 - name: Ensure DNS _mailcow_dns_records
   ansible.builtin.include_role:
     name: dns
@@ -200,7 +200,7 @@
     dns_record_name:  "{{ _mailcow_dns_record.name }}"
     dns_record_type:  "{{ _mailcow_dns_record.type }}"
     dns_record_value: "{{ _mailcow_dns_record.value }}"
-  loop: _mailcow_dns_records
+  loop: "{{ _mailcow_dns_records }}"
   loop_control:
     loop_var: _mailcow_dns_record
 
