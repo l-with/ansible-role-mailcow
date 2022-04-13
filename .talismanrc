@@ -29,6 +29,11 @@ fileignoreconfig:
     - >
       _MAILCOW_RSPAMD_UI_PASSWORD: "{{ \w+ }}"
 
+- filename: tasks/mailcow_dns.yml
+  allowed_patterns:
+    - >
+      X-API-Key: +"{{ mailcow_api_key }}"
+
 - filename: templates/mailcow_set_rspamd_ui_password.sh.j2
   ignore_detectors: [filename]
   allowed_patterns:
