@@ -27,7 +27,7 @@
         value:     '10 {{ mailcow_hostname }}.'
 
   - name: Ensure MX record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_mx
@@ -45,7 +45,7 @@
         value:     'mail'
 
   - name: Ensure autoconfig record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_autoconfig
@@ -63,7 +63,7 @@
         value:     'mail'
 
   - name: Ensure autodiscover record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_autodiscover
@@ -81,7 +81,7 @@
         value:     "10 10 443 mail.{{ mailcow_domain }}."
 
   - name: Ensure autodiscover SRV record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_autodiscover
@@ -99,7 +99,7 @@
         value:     "\"v=spf1 +a +mx -all\""
 
   - name: Ensure SPF record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_spf
@@ -131,7 +131,7 @@
         value:     "3 1 1 {{ _mailcow_tlsa_hash }}"
 
   - name: Ensure TLSA record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_tlsa
@@ -183,7 +183,7 @@
         value:     "{{ _mailcow_dkim_txt }}"
 
   - name: Ensure DKIM record in _mailcow_dns_records
-    ansible.built.set_fact:
+    ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
 
   when: _mailcow_dns_dkim
