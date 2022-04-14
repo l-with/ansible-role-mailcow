@@ -130,6 +130,10 @@
         type:      'TLSA'
         value:     "3 1 1 {{ _mailcow_tlsa_hash }}"
 
+  - name: Set fact mailcow_dns_record_TLSA
+    ansible.builtin.set_fact:
+      mailcow_dns_record_TLSA: "{{ _mailcow_dns_record }}"
+
   - name: Ensure TLSA record in _mailcow_dns_records
     ansible.builtin.set_fact:
       _mailcow_dns_records: "{{ _mailcow_dns_records + [_mailcow_dns_record] }}"
@@ -183,6 +187,10 @@
         # ttl:    
         type:      'TXT'
         value:     "{{ _mailcow_dkim_txt }}"
+
+  - name: Set fact mailcow_dns_record_DKIM
+    ansible.builtin.set_fact:
+      mailcow_dns_record_DKIM: "{{ _mailcow_dns_record }}"
 
   - name: Ensure DKIM record in _mailcow_dns_records
     ansible.builtin.set_fact:

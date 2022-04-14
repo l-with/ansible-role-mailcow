@@ -76,6 +76,8 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | group | variable | description |
 | --- | --- | --- |
 | DNS | `mailcow_dns_records` | list of dns records (dict `dns_record`) |
+| DNS | `mailcow_dns_record_TLSA` | the TLSA dns record |
+| DNS | `mailcow_dns_record_DKIM` | the DKIM dns record |
 
 | dict | element | default | description |
 | --- | --- | --- | --- |
