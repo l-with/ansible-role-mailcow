@@ -34,6 +34,7 @@ mailcow_dns_autodiscover: true
 mailcow_dns_spf: true
 mailcow_dns_tlsa: true
 mailcow_dns_dkim: true
+mailcow_dns_do: true
 mailcow_dns_debug: false
 
 ...

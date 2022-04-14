@@ -16,7 +16,7 @@ Note that this also requires installation of the python libraries `docker` and `
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD034 -->
 | group | variable | default | description |
-| --- | --- | ---| --- |
+| --- | --- | --- | --- |
 | basic | `mailcow_hostname` | | the host name for mailcow |
 | basic | `mailcow_install_path` | `/opt/mailcow-dockerized` | the install path for mailcow |
 | basic | `mailcow_timezone` | `Europe/Berlin` | the time zone for mailcow |
@@ -51,8 +51,9 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | `dns_record_type` | the type for the dns record |
 | `dns_record_value` | the value for the dns record (typically the ipv4 address) |
 
+<!-- markdownlint-disable MD033 -->
 | group | variable | default | description |
-| --- | --- | ---| --- |
+| --- | --- | --- | --- |
 | Doamin/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
 | Domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
 | Domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
@@ -66,4 +67,19 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_spf` | | if the SPF record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_tlsa` | | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_do` | `true` | if the role should create the dns records with role `dns` (s. above) or only create the output variable `mailcow_dns_records` |
 | DNS | `mailcow_dns_debug` | `false` | if debug information should be printed |
+<!-- markdownlint-enable MD033 -->
+
+### Output
+
+| group | variable | description |
+| --- | --- | --- |
+| DNS | `mailcow_dns_records` | list of dns records (dict `dns_record`) |
+
+| dict | element | default | description |
+| --- | --- | --- | --- |
+| `dns_record` | `zone_name` | | the name of the zone (the domain) |
+| `dns_record` | `name` | | the name for the dns record (typically the subdomain) |
+| `dns_record` | `type` | | the type for the dns record |
+| `dns_record` | `value` | | the value for the dns record (typically the ipv4 address) |

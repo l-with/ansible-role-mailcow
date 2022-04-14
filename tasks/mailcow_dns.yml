@@ -199,16 +199,16 @@
   ansible.builtin.include_role:
     name: dns
   vars:
-    dns_zone_name:    "{{ _mailcow_dns_record.zone_name }}"
-    dns_record_name:  "{{ _mailcow_dns_record.name }}"
-    dns_record_type:  "{{ _mailcow_dns_record.type }}"
-    dns_record_value: "{{ _mailcow_dns_record.value }}"
+    dns_zone_name:    "{{ item.zone_name }}"
+    dns_record_name:  "{{ item.name }}"
+    dns_record_type:  "{{ item.type }}"
+    dns_record_value: "{{ item.value }}"
   loop: "{{ _mailcow_dns_records }}"
-  loop_control:
-    loop_var: _mailcow_dns_record
+  when: mailcow_dns_do
 
 - name: Set fact mailcow_dns_records
   ansible.builtin.set_fact:
     mailcow_dns_records: "{{ _mailcow_dns_records }}"
+  when: not mailcow_dns_do
     
 ...
