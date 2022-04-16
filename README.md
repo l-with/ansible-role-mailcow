@@ -16,7 +16,7 @@ Note that this also requires installation of the python libraries `docker` and `
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD034 -->
 | group | variable | default | description |
-| --- | --- | ---| --- |
+| --- | --- | --- | --- |
 | basic | `mailcow_hostname` | | the host name for mailcow |
 | basic | `mailcow_install_path` | `/opt/mailcow-dockerized` | the install path for mailcow |
 | basic | `mailcow_timezone` | `Europe/Berlin` | the time zone for mailcow |
@@ -25,8 +25,8 @@ Note that this also requires installation of the python libraries `docker` and `
 | basic | `mailcow_docker_compose_state` | `present` | state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html) |
 | security | `mailcow_admin_user` | | the username of the mailcow administrator |
 | security | `mailcow_admin_password` | | the password for the mailcow administrator |
-| security | `mailcow_api_key` | | API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -) |
-| security | `mailcow_api_key_read_only` | | API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
+| security | `mailcow_api_key` | | the API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -) |
+| security | `mailcow_api_key_read_only` | | the API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_allow_from` | | comma separated list of IPs to allow API access from |
 | security | `mailcow_rspamd_ui_password` | | the password for the mailcow Rspamd UI |
 | security | `mailcow_delete_admin_script` |  `/root/ansible_mailcow_delete_admin.sh` | the path for the mailcow delete admin script |
@@ -51,8 +51,9 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | `dns_record_type` | the type for the dns record |
 | `dns_record_value` | the value for the dns record (typically the ipv4 address) |
 
+<!-- markdownlint-disable MD033 -->
 | group | variable | default | description |
-| --- | --- | ---| --- |
+| --- | --- | --- | --- |
 | Doamin/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
 | Domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
 | Domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
@@ -66,3 +67,21 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 | DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_spf` | | if the SPF record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_tlsa` | | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_do` | `true` | if the role should create the dns records with role `dns` (s. above) or only create the output variable `mailcow_dns_records` |
+| DNS | `mailcow_dns_debug` | `false` | if debug information should be printed |
+<!-- markdownlint-enable MD033 -->
+
+### Output
+
+| group | variable | description |
+| --- | --- | --- |
+| DNS | `mailcow_dns_records` | list of dns records (dict `dns_record`) |
+| DNS | `mailcow_dns_record_TLSA` | the TLSA dns record |
+| DNS | `mailcow_dns_record_DKIM` | the DKIM dns record |
+
+| dict | element | default | description |
+| --- | --- | --- | --- |
+| `dns_record` | `zone_name` | | the name of the zone (the domain) |
+| `dns_record` | `name` | | the name for the dns record (typically the subdomain) |
+| `dns_record` | `type` | | the type for the dns record |
+| `dns_record` | `value` | | the value for the dns record (typically the ipv4 address) |
