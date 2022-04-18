@@ -1,0 +1,35 @@
+---
+
+- name: Ensure backup path
+  ansible.builtin.file:
+    path:  "{{ mailcow_backup_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode:  o-rx
+
+- name: Ensure backup scripts path
+  ansible.builtin.file:
+    path:  "{{ mailcow_backup_scripts_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode:  o-rx
+
+- name: Ensure backup script
+  ansible.builtin.template:
+    src: templates/mailcow_backup.sh.j2
+    dest: "{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"
+    owner: root
+    group: root
+    mode:  u+x,o-r
+
+- name: Ensure restore script
+  ansible.builtin.template:
+    src: templates/mailcow_restore.sh.j2
+    dest: "{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"
+    owner: root
+    group: root
+    mode:  u+x,o-r
+
+...
