@@ -40,4 +40,8 @@
 - name: Ensure mailcow DNS entries
   ansible.builtin.include_tasks: mailcow_dns.yml
 
+- name: Ensure configure backup
+  ansible.builtin.include_tasks: backup.yml
+  when: mailcow_configure_backup
+
 ...
