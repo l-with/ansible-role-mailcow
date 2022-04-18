@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    mode:  o-rx
+    mode:  o+wx
 
 - name: Ensure backup scripts path
   ansible.builtin.file:
