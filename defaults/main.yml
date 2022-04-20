@@ -37,4 +37,13 @@ mailcow_dns_dkim: true
 mailcow_dns_do: true
 mailcow_dns_debug: false
 
+mailcow_configure_backup: false
+mailcow_path: /opt/mailcow
+mailcow_backup_path: /var/backups/mailcow
+mailcow_backup_scripts_path: "{{ mailcow_path }}/scripts"
+mailcow_backup_script_name: mailcow-backup.sh
+mailcow_restore_script_name: mailcow-restore.sh
+mailcow_backup_script: "{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"
+mailcow_restore_script: "{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"
+
 ...

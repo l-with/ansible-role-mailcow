@@ -51,3 +51,9 @@ fileignoreconfig:
   allowed_patterns:
     - >
       ### `mailcow_set_rspamd_ui_password_script`: `/root/ansible_set_rspamd_ui_password.sh`
+
+- filename: tasks/backup.yml
+  ignore_detectors: [filename]
+
+- filename: templates/mailcow_backup.sh.j2
+  ignore_detectors: [filename]
