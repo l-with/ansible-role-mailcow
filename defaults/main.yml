@@ -10,6 +10,8 @@ mailcow_docker_compose_state: present
 mailcow_acme: 'out-of-the-box'
 mailcow_acme_staging: false
 
+mailcow_submission_port: 587
+
 mailcow_delete_default_admin_script: /root/ansible_mailcow_delete_default_admin.sh
 mailcow_set_admin_script: /root/ansible_mailcow_set_admin.sh
 mailcow_set_rspamd_ui_password_script: /root/ansible_set_rspamd_ui_password.sh

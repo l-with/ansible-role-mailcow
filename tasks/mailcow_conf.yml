@@ -19,6 +19,14 @@
       API_KEY={{ mailcow_api_key }}
   when: mailcow_api_key is defined
 
+- name: Ensure SUBMISSION_PORT
+  ansible.builtin.lineinfile:
+    path:   "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    regexp: SUBMISSION_PORT=
+    line:   "SUBMISSION_PORT={{ mailcow_submission_port }}"
+  when: mailcow_submission_port ne 587
+
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
     path: "{{ mailcow_install_path }}/mailcow.conf"
