@@ -26,13 +26,20 @@
     regexp: SUBMISSION_PORT=
     line:   "SUBMISSION_PORT={{ mailcow_submission_port }}"
 
-- name: Ensure SUBMISSION_PORT in docker-compose.yml
+- name: Ensure SUBMISSION_PORT in docker-compose.yml for php-fpm-mailcow
   ansible.builtin.lineinfile:
     path:   "{{ mailcow_install_path }}/docker-compose.yml"
     backup: true
     regexp: '- SUBMISSION_PORT=\${SUBMISSION_PORT:-\d+}'
     line: "        - SUBMISSION_PORT=${SUBMISSION_PORT:-{{ mailcow_submission_port }}}"
-    
+        
+- name: Ensure SUBMISSION_PORT in docker-compose.yml for postfix-mailcow
+  ansible.builtin.lineinfile:
+    path:   "{{ mailcow_install_path }}/docker-compose.yml"
+    backup: true
+    regexp: '- "${SUBMISSION_PORT:-588}:588"'
+    line:   "        - \"${SUBMISSION_PORT:-{{ mailcow_submission_port }}}:{{ mailcow_submission_port }}\""
+
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
     path: "{{ mailcow_install_path }}/mailcow.conf"
