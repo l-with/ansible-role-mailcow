@@ -25,7 +25,6 @@
     backup: true
     regexp: SUBMISSION_PORT=
     line:   "SUBMISSION_PORT={{ mailcow_submission_port }}"
-  when: mailcow_submission_port ne 587
 
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
