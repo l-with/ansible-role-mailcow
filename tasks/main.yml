@@ -16,9 +16,8 @@
 
 - name: Ensure mailcow is installed with docker-compose
   ansible.builtin.command:
-    cmd: "docker-compose -up -d -p {{ mailcow_docker_compose_project_name }}"
-    args:
-      chdir: "{{ mailcow_install_path }}"
+    cmd:   "docker-compose -up -d -p {{ mailcow_docker_compose_project_name }}"
+    chdir: "{{ mailcow_install_path }}"
 
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml
