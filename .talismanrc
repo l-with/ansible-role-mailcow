@@ -57,3 +57,8 @@ fileignoreconfig:
 
 - filename: templates/mailcow_backup.sh.j2
   ignore_detectors: [filename]
+
+allowed_patterns:
+  - >
+    [-_a-zA-Z0-9]+: +"{{ [-_a-zA-Z0-9]+ }}"
+

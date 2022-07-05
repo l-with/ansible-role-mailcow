@@ -1,0 +1,5 @@
+---
+
+mailcow_api_url: "https://{{ mailcow_hostname }}/api/v1"
+
+...
