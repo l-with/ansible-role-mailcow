@@ -6,10 +6,7 @@ Install mailcow with [mailcow-dockerized]('https://github.com/mailcow/mailcow-do
 
 The role depends on the
 
-- collection community.docker
 - ansible role dns
-
-Note that this also requires installation of the python libraries `docker` and `docker-compose`.
 
 ## Role Variables
 
