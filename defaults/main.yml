@@ -41,6 +41,7 @@ mailcow_dns_dkim: true
 mailcow_dns_do: true
 mailcow_dns_debug: false
 
+mailcow_configure_oauth2: false
 # mailcow_oauth2_client_id:
 # mailcow_oauth2_client_secret:
 # mailcow_oauth2_client_redirect_uri:

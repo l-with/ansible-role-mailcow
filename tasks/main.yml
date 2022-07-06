@@ -43,4 +43,8 @@
   ansible.builtin.include_tasks: backup.yml
   when: mailcow_configure_backup
 
+- name: Ensure configure OAUTH2
+  ansible.builtin.include_tasks: mailcow_oauth2.yml
+  when: mailcow_configure_oauth2
+
 ...
