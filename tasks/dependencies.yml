@@ -4,24 +4,4 @@
   ansible.builtin.apt:
     package: git
 
-- name: Ensure software-properties-common is installed
-  ansible.builtin.apt:
-    name: software-properties-common
-
-- name: Ensure python is installed
-  ansible.builtin.apt:
-    name: python3
-
-- name: Ensure pip is installed
-  ansible.builtin.apt:
-    name: python3-pip
-
-- name: Ensure Python library docker
-  ansible.builtin.pip:
-    name: docker
-
-- name: Ensure Python library docker-compose
-  ansible.builtin.pip:
-    name: docker-compose
-
 ...
