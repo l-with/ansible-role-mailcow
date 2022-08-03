@@ -35,6 +35,11 @@ The role depends on the
 | configuration | `mailcow_submission_port` | `587` | the SUBMISSION_PORT in mailcow.conf |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 | configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
+| oauth2 | `mailcow_configure_oauth2` | `false` | if oauth2 should be configured |
+| oauth2 | `mailcow_oauth2_client_id` | | the client id for the mailcow oauth2 app |
+| oauth2 | `mailcow_oauth2_client_secret` | | the client secret for the mailcow oauth2 app |
+| oauth2 | `mailcow_oauth2_client_redirect_uri` | | the redirect uri for the mailcow oauth2 app |
+| oauth2 | `mailcow_oauth2_client_scope` | `profile` | the scope for the mailcow oauth2 app |
 | backup | `mailcow_configure_backup` | `false` | if backup of the mailcow should be configured for unattended backup |
 | backup | `mailcow_path` | `/opt/mailcow` | the mailcow path for the backup artifacts (scripts) |
 | backup | `mailcow_backup_path` | `/var/backups/mailcow` | the path for the mailcow backup |

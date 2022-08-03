@@ -1,0 +1,17 @@
+---
+
+- name: Ensure oauth2-client in mailcow
+  ansible.builtin.uri:
+    url: "{{ mailcow_api_url }}/add/oauth2-client"
+    body_format: json
+    headers:
+      X-API-Key: "{{ mailcow_api_key }}"
+    method: post
+    body:
+      client_id:     "{{ mailcow_oauth2_client_id }}"
+      client_secret: "{{ mailcow_oauth2_client_secret }}"
+      redirect_uri:  "{{ mailcow_oauth2_client_redirect_uri }}" # "https://authentik.with.de/source/oauth/callback/mailcow"
+      scope:         "{{ mailcow_oauth2_client_scope }}"
+  register: _response
+
+...

@@ -1,5 +1,7 @@
 ---
 
+# mailcow_hostname:
+
 mailcow_install_path: /opt/mailcow-dockerized
 mailcow_timezone: Europe/Berlin
 mailcow_version: master
@@ -38,6 +40,12 @@ mailcow_dns_tlsa: true
 mailcow_dns_dkim: true
 mailcow_dns_do: true
 mailcow_dns_debug: false
+
+mailcow_configure_oauth2: false
+# mailcow_oauth2_client_id:
+# mailcow_oauth2_client_secret:
+# mailcow_oauth2_client_redirect_uri:
+mailcow_oauth2_client_scope: profile
 
 mailcow_configure_backup: false
 mailcow_path: /opt/mailcow
