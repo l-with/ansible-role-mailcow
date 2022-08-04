@@ -34,7 +34,7 @@
 
 - name: Ensure mailcow domain
   ansible.builtin.include_tasks: mailcow_domain.yml
-  when: lookup('vars', 'mailcow_domain')
+  when: mailcow_domain is defined
 
 - name: Ensure mailcow DNS entries
   ansible.builtin.include_tasks: mailcow_dns.yml
