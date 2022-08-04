@@ -24,7 +24,7 @@ mailcow_additional_san: autodiscover.*,autoconfig.*
 mailcow_greylisting: true
 mailcow_mynetworks: ''
 
-mailcow_domain_description: "{{ lookup('vars', 'mailcow_domain') | default('domain description') }}"
+mailcow_domain_description: "{{ mailcow_domain | default('domain description') }}"
 mailcow_domain_max_aliases: 400
 mailcow_domain_max_mailboxes: 20
 mailcow_domain_default_mailbox_quota: 2048
