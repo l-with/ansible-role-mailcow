@@ -16,8 +16,9 @@ The role depends on the
 | --- | --- | --- | --- |
 | basic | `mailcow_hostname` | | the host name for mailcow |
 | basic | `mailcow_install_path` | `/opt/mailcow-dockerized` | the install path for mailcow |
-| basic | `mailcow_timezone` | `Europe/Berlin` | the time zone for mailcow |
-| basic | `mailcow_version` | `master` | the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameter-version) to checkout |
+| basic | `mailcow_timezone` | `Europe/Berlin` | the time zone value for mailcow  (`MAILCOW_TZ`) |
+| basic | `mailcow_branch` | `master` | the branch value for mailcow (`MAILCOW_BRANCH`) |
+| basic | `mailcow_version` | `{{ mailcow_branch }}` | the [version](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameter-version) to checkout |
 | basic | `mailcow_docker_compose_project_name` | `mailcow_dockerized` | the name for the mailcow docker compose project |
 | basic | `mailcow_docker_compose_state` | `present` | state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html) |
 | security | `mailcow_admin_user` | | the username of the mailcow administrator |

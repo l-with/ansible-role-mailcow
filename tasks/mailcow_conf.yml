@@ -4,6 +4,7 @@
   ansible.builtin.command: ./generate_config.sh
   environment:
     MAILCOW_HOSTNAME: "{{ mailcow_hostname }}"
+    MAILCOW_BRANCH: "{{ mailcow_branch }}"
     MAILCOW_TZ: "{{ mailcow_timezone }}"
   args:
     chdir: "{{ mailcow_install_path }}"
