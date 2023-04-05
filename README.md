@@ -85,6 +85,10 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 
 | group | variable | description |
 | --- | --- | --- |
+| backup | `mailcow_path` | the mailcow path for the backup artifacts (scripts) |
+| backup | `mailcow_backup_path` | the path for the mailcow backup |
+| backup | `mailcow_backup_script` | the mailcow backup script |
+| backup | `mailcow_restore_script` | the mailcow restore script |
 | DNS | `mailcow_dns_records` | list of dns records (dict `dns_record`) |
 | DNS | `mailcow_dns_record_TLSA` | the TLSA dns record |
 | DNS | `mailcow_dns_record_DKIM` | the DKIM dns record |
