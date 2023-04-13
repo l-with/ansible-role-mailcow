@@ -16,9 +16,9 @@
     group: root
     mode: u+x,o-r
 
-- name: Wait for mailcow API ready
+- name: Wait for mailcow ready
   ansible.builtin.uri:
-    url: "https://{{ mailcow_hostname }}/api/#/"
+    url: "https://{{ mailcow_hostname }}"
     validate_certs: false
     method: get
   register: response
@@ -26,9 +26,9 @@
   retries: 60
   delay: 30
 
-- name: Wait for mailcow ready
+- name: Wait for mailcow API ready
   ansible.builtin.uri:
-    url: "https://{{ mailcow_hostname }}"
+    url: "https://{{ mailcow_hostname }}/api/#/"
     validate_certs: false
     method: get
   register: response
