@@ -30,14 +30,14 @@
 - name: Ensure SUBMISSION_PORT in docker-compose.yml for php-fpm-mailcow
   ansible.builtin.lineinfile:
     path:   "{{ mailcow_install_path }}/docker-compose.yml"
-    backup: yes
+    backup: true
     regexp: '- SUBMISSION_PORT=\${SUBMISSION_PORT:-\d+}'
     line: "        - SUBMISSION_PORT=${SUBMISSION_PORT:-{{ mailcow_submission_port }}}"
         
 - name: Ensure SUBMISSION_PORT in docker-compose.yml for postfix-mailcow
   ansible.builtin.lineinfile:
     path:   "{{ mailcow_install_path }}/docker-compose.yml"
-    backup: yes
+    backup: true
     regexp: '- "\${SUBMISSION_PORT:-\d+}:\d+"'
     line:   "        - \"${SUBMISSION_PORT:-{{ mailcow_submission_port }}}:{{ mailcow_submission_port }}\""
 
@@ -85,5 +85,21 @@
     regexp: SKIP_LETS_ENCRYPT=
     line: SKIP_LETS_ENCRYPT=y
   when: mailcow_acme != 'out-of-the-box'
+
+- name: Ensure DOVECOT_MASTER_USER
+  ansible.builtin.lineinfile:
+    path:  "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    regexp: DOVECOT_MASTER_USER=
+    line:   "DOVECOT_MASTER_USER={{ mailcow_dovecot_master_user }}"
+  when: not mailcow_dovecot_master_auto_generated
+
+- name: Ensure DOVECOT_MASTER_PASS
+  ansible.builtin.lineinfile:
+    path:  "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    regexp: DOVECOT_MASTER_PASS=
+    line:   "DOVECOT_MASTER_PASS={{ mailcow_dovecot_master_password }}"
+  when: not mailcow_dovecot_master_auto_generated
 
 ...

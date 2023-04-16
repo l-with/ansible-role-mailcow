@@ -23,6 +23,9 @@ The role depends on the
 | basic | `mailcow_docker_compose_state` | `present` | state for [community.docker.docker_compose](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_module.html) |
 | security | `mailcow_admin_user` | | the username of the mailcow administrator |
 | security | `mailcow_admin_password` | | the password for the mailcow administrator |
+| security | `mailcow_dovecot_master_auto_generated` | `true` | if the dovecot master user and password should be auto-generated |
+| security | `mailcow_dovecot_master_user` | | the username of the dovecot master user (DOVECOT_MASTER_USER) if not auto-generated |
+| security | `mailcow_dovecot_master_password` | | the password for the dovecot master user (DOVECOT_MASTER_PASS) if not auto-generated |
 | security | `mailcow_api_key` | | the API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_key_read_only` | | the API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_allow_from` | | comma separated list of IPs to allow API access from |
