@@ -67,7 +67,7 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 <!-- markdownlint-disable MD033 -->
 | group | variable | default | description |
 | --- | --- | --- | --- |
-| Doamin/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
+| Domain/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
 | Domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
 | Domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
 | Domain | `mailcow_domain_max_mailboxes` | 20 | the maximum number of aliases for the `mailcow_domain` |
