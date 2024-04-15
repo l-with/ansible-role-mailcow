@@ -32,6 +32,8 @@ mailcow_domain_default_mailbox_quota: 2048
 mailcow_domain_max_mailbox_quota: 4096
 mailcow_domain_quota: 40960
 
+mailcow_dovecot_master_auto_generated: true
+
 mailcow_dns: true
 mailcow_dns_mx: true
 mailcow_dns_autoconfig: true
