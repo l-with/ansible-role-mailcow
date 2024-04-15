@@ -58,7 +58,7 @@
     marker: "### {mark} ANSIBLE MANAGED BLOCK (API_ALLOW_FROM)"
     insertafter: "#API_ALLOW_FROM="
     block: |
-      API_ALLOW_FROM={{ mailcow_api_allow_from }}
+      API_ALLOW_FROM={{ mailcow_api_allow_from | join(',') }}
   when: mailcow_api_allow_from is defined
 
 - name: Ensure ADDITIONAL_SAN

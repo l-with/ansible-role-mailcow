@@ -28,7 +28,7 @@ The role depends on the
 | security | `mailcow_dovecot_master_password` | | the password for the dovecot master user (DOVECOT_MASTER_PASS) if not auto-generated |
 | security | `mailcow_api_key` | | the API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_key_read_only` | | the API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
-| security | `mailcow_api_allow_from` | | comma separated list of IPs to allow API access from |
+| security | `mailcow_api_allow_from` | | list of IPs to allow API access from |
 | security | `mailcow_rspamd_ui_password` | | the password for the mailcow Rspamd UI |
 | security | `mailcow_delete_admin_script` |  `/root/ansible_mailcow_delete_admin.sh` | the path for the mailcow delete admin script |
 | security | `mailcow_set_admin_script` | `/root/ansible_mailcow_set_admin.sh` | the path for the mailcow set admin script |
