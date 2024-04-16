@@ -31,6 +31,29 @@
 - name: Ensure mailcow.conf
   ansible.builtin.include_tasks: mailcow_conf.yml
 
+- name: Ensure MAILCOW_GIT_VERSION in UI
+  ansible.builtin.lineinfile:
+    path: "{{ mailcow_install_path }}/data/web/inc/app_info.inc.php"
+    regexp: 'MAILCOW_GIT_VERSION'
+    line: "$MAILCOW_GIT_VERSION=\"{{ mailcow_version }}"
+
+- name: Get mailcow git commit date
+  ansible.builtin.shell:
+    chdir: "{{ mailcow_install_path }}"
+    cmd: "git show -s --format=%ci {{ mailcow_git_commit }}"
+  register: _mailcow_git_commit_date
+  changed_when: false
+
+- name: Set fact mailcow_git_commit_date
+  ansible.builtin.set_fact:
+    mailcow_git_commit_date: "{{ _mailcow_git_commit_date.stdout }}"
+
+- name: Ensure MAILCOW_GIT_COMMIT_DATE in UI
+  ansible.builtin.lineinfile:
+    path: "{{ mailcow_install_path }}/data/web/inc/app_info.inc.php"
+    regexp: 'MAILCOW_GIT_COMMIT_DATE'
+    line: "$MAILCOW_GIT_COMMIT_DATE=\"{{ _mailcow_git_commit_date }}"
+
 - name: Ensure mailcow is installed with docker compose
   ansible.builtin.command:
     cmd:   "docker compose -p {{ mailcow_docker_compose_project_name }} up -d "
