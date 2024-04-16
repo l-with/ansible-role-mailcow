@@ -11,6 +11,23 @@
     dest: "{{ mailcow_install_path }}"
     umask: '022'
 
+- name: Get mailcow_version commit
+  ansible.builtin.shell:
+    chdir: "{{ mailcow_install_path }}"
+    cmd: "git rev-list -n 1 {{ mailcow_version }}"
+  register: _mailcow_git_rev_list
+  changed_when: false
+
+- name: Set fact mailcow_git_commit
+  ansible.builtin.set_fact:
+    mailcow_git_commit: "{{ _mailcow_git_rev_list.stdout }}"
+
+- name: Ensure mailcow git reset
+  ansible.builtin.shell:
+    chdir: "{{ mailcow_install_path }}"
+    cmd: git reset --hard {{ mailcow_git_commit }} | tee >/root/ansible_done_mailcow_git_reset
+    creates: ../ansible_done_mailcow_git_reset
+
 - name: Ensure mailcow.conf
   ansible.builtin.include_tasks: mailcow_conf.yml
 
@@ -23,7 +40,7 @@
   ansible.builtin.include_tasks: mailcow_admin.yml
 
 - name: Ensure mailcow Rspamd UI password
-  ansible.builtin.include_tasks: mailcow_rspamd_password.yml
+  ansible.builtin.include_tasks: mailcow_rspamd _password.yml
 
 - name: Ensure certbot triggers post-hook script
   ansible.builtin.include_tasks: mailcow_certbot.yml
