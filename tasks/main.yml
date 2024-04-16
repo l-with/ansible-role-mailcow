@@ -35,7 +35,7 @@
   ansible.builtin.lineinfile:
     path: "{{ mailcow_install_path }}/data/web/inc/app_info.inc.php"
     regexp: 'MAILCOW_GIT_VERSION'
-    line: "  $MAILCOW_GIT_VERSION=\"{{ mailcow_version }}\""
+    line: "  $MAILCOW_GIT_VERSION=\"{{ mailcow_version }}\";"
 
 - name: Get mailcow git commit date
   ansible.builtin.shell:
@@ -52,7 +52,7 @@
   ansible.builtin.lineinfile:
     path: "{{ mailcow_install_path }}/data/web/inc/app_info.inc.php"
     regexp: 'MAILCOW_GIT_COMMIT_DATE'
-    line: "  $MAILCOW_GIT_COMMIT_DATE=\"{{ mailcow_git_commit_date }}\""
+    line: "  $MAILCOW_GIT_COMMIT_DATE=\"{{ mailcow_git_commit_date }}\";"
 
 - name: Ensure mailcow is installed with docker compose
   ansible.builtin.command:
