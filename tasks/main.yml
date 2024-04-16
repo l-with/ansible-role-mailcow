@@ -40,7 +40,7 @@
   ansible.builtin.include_tasks: mailcow_admin.yml
 
 - name: Ensure mailcow Rspamd UI password
-  ansible.builtin.include_tasks: mailcow_rspamd _password.yml
+  ansible.builtin.include_tasks: mailcow_rspamd_password.yml
 
 - name: Ensure certbot triggers post-hook script
   ansible.builtin.include_tasks: mailcow_certbot.yml
