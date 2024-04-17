@@ -3,14 +3,14 @@
 - name: Ensure mailcow certbot post-hook script
   ansible.builtin.template:
     src: mailcow_certbot_post-hook.sh.j2
-    dest: "{{ mailcow_certbot_post_hook_script }}"
+    dest: "{{ mailcow_certbot_post_hook_script_full_path }}"
     owner: root
     group: root
     mode: u+x,o-r
 
 - name: Ensure mailcow certbot post-hook script executed
   ansible.builtin.shell:
-    cmd: "{{ mailcow_certbot_post_hook_script }} && touch ansible_done_certbot_post_hook_script"
+    cmd: "{{ mailcow_certbot_post_hook_script_full_path }} && touch ansible_done_certbot_post_hook_script"
   args:
     creates: ansible_done_certbot_post_hook_script
 

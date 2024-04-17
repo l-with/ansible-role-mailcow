@@ -1,30 +1,73 @@
 ---
 
+#######
+# basic
+#######
+mailcow_install:                     true
+mailcow_configure:                   true
+mailcow_start:                       true
 # mailcow_hostname:
-
-mailcow_install_path: /opt/mailcow-dockerized
-mailcow_timezone: Europe/Berlin
-mailcow_branch: master
-mailcow_version: "{{ mailcow_branch }}"
-
+mailcow_install_path:                /opt/mailcow-dockerized
+mailcow_timezone:                    Europe/Berlin
+mailcow_branch:                      master
+mailcow_version:                     "{{ mailcow_branch }}"
 mailcow_docker_compose_project_name: mailcowdockerized
-mailcow_docker_compose_state: present
+mailcow_docker_compose_state:        present
 
-mailcow_acme: 'out-of-the-box'
-mailcow_acme_staging: false
-
-mailcow_submission_port: 587
-
-mailcow_delete_default_admin_script: /root/ansible_mailcow_delete_default_admin.sh
-mailcow_set_admin_script: /root/ansible_mailcow_set_admin.sh
+##########
+# security
+##########
+# mailcow_admin_user
+# mailcow_admin_password
+mailcow_dovecot_master_auto_generated: true
+# mailcow_dovecot_master_user
+# mailcow_dovecot_master_password
+# mailcow_api_key
+# mailcow_api_key_read_only
+# mailcow_api_allow_from
+# mailcow_rspamd_ui_password
+mailcow_delete_default_admin_script:   /root/ansible_mailcow_delete_default_admin.sh
+mailcow_set_admin_script:              /root/ansible_mailcow_set_admin.sh
 mailcow_set_rspamd_ui_password_script: /root/ansible_set_rspamd_ui_password.sh
-mailcow_certbot_post_hook_script: /root/ansible_mailcow_certbot_post_hook.sh
 
-mailcow_additional_san: autodiscover.*,autoconfig.*
+#######
+# https
+#######
+mailcow_acme:                               'out-of-the-box'
+mailcow_acme_staging:                       false
+mailcow_additional_san:                     autodiscover.*,autoconfig.*
+mailcow_certbot_post_hook_script_full_path: /root/ansible_mailcow_certbot_post_hook.sh
 
+###############
+# configuration
+###############
+mailcow_submission_port: 587
 mailcow_greylisting: true
 mailcow_mynetworks: ''
 
+########
+# oauth2
+########
+mailcow_configure_oauth2:             false
+# mailcow_oauth2_client_redirect_uri:
+mailcow_oauth2_client_scope:          profile
+
+########
+# backup
+########
+mailcow_configure_backup:    false
+mailcow_path:                /opt/mailcow
+mailcow_backup_path:         /var/backups/mailcow
+mailcow_backup_scripts_path: "{{ mailcow_path }}/scripts"
+mailcow_backup_script_name:  mailcow-backup.sh
+mailcow_restore_script_name: mailcow-restore.sh
+mailcow_backup_script:       "{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"
+mailcow_restore_script:      "{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"
+
+########
+# domain
+########
+# mailcow_domain:
 mailcow_domain_description: "{{ mailcow_domain | default('domain description') }}"
 mailcow_domain_max_aliases: 400
 mailcow_domain_max_mailboxes: 20
@@ -32,8 +75,10 @@ mailcow_domain_default_mailbox_quota: 2048
 mailcow_domain_max_mailbox_quota: 4096
 mailcow_domain_quota: 40960
 
-mailcow_dovecot_master_auto_generated: true
-
+#####
+# DNS
+#####
+mailcow_dns_do: true
 mailcow_dns: true
 mailcow_dns_mx: true
 mailcow_dns_autoconfig: true
@@ -41,20 +86,6 @@ mailcow_dns_autodiscover: true
 mailcow_dns_spf: true
 mailcow_dns_tlsa: true
 mailcow_dns_dkim: true
-mailcow_dns_do: true
 mailcow_dns_debug: false
-
-mailcow_configure_oauth2: false
-# mailcow_oauth2_client_redirect_uri:
-mailcow_oauth2_client_scope: profile
-
-mailcow_configure_backup: false
-mailcow_path: /opt/mailcow
-mailcow_backup_path: /var/backups/mailcow
-mailcow_backup_scripts_path: "{{ mailcow_path }}/scripts"
-mailcow_backup_script_name: mailcow-backup.sh
-mailcow_restore_script_name: mailcow-restore.sh
-mailcow_backup_script: "{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"
-mailcow_restore_script: "{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"
 
 ...
