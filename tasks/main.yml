@@ -3,29 +3,31 @@
 - name: Ensure prepare dependencies
   ansible.builtin.include_tasks: dependencies.yml
 
-- name: Ensure mailcow cloned
-  ansible.builtin.git:
-    repo: https://github.com/mailcow/mailcow-dockerized.git
-    version: "{{ mailcow_version }}"
-    update: false
-    dest: "{{ mailcow_install_path }}"
-    umask: '022'
+- name: Ensure install mailcow
+  ansible.builtin.include_task: mailcow_install.yml
+  when: mailcow_install
 
 - name: Ensure mailcow_version
   ansible.builtin.include_tasks: mailcow_version.yml
-  when: mailcow_version != mailcow_branch
+  when: mailcow_install and (mailcow_version != mailcow_branch)
 
 - name: Ensure mailcow.conf
   ansible.builtin.include_tasks: mailcow_conf.yml
+  when: mailcow_configure
 
 - name: Ensure mailcow_version in UI
   ansible.builtin.include_tasks: mailcow_version_ui.yml
-  when: mailcow_version != mailcow_branch
+  when: mailcow_configure and mailcow_version != mailcow_branch
 
-- name: Ensure mailcow is installed with docker compose
+- name: Ensure mailcow configuration
+  ansible.builtin.include_tasks: mailcow_configuration.yml
+  when: mailcow_configure
+
+- name: Ensure mailcow is running with docker compose
   ansible.builtin.command:
     cmd:   "docker compose -p {{ mailcow_docker_compose_project_name }} up -d "
     chdir: "{{ mailcow_install_path }}"
+  when: mailcow_start
 
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml
@@ -36,9 +38,6 @@
 - name: Ensure certbot triggers post-hook script
   ansible.builtin.include_tasks: mailcow_certbot.yml
   when: mailcow_acme == 'certbot'
-
-- name: Ensure mailcow configuration
-  ansible.builtin.include_tasks: mailcow_configuration.yml
 
 - name: Ensure mailcow domain
   ansible.builtin.include_tasks: mailcow_domain.yml

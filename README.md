@@ -14,6 +14,9 @@ The role depends on the
 <!-- markdownlint-disable MD034 -->
 | group | variable | default | description |
 | --- | --- | --- | --- |
+| basic | `mailcow_install` | `true` | if mailcow should be installed |
+| basic | `mailcow_configure` | `true` | if mailcow should be configured |
+| basic | `mailcow_start` | `true` | if mailcow should be started |
 | basic | `mailcow_hostname` | | the host name for mailcow |
 | basic | `mailcow_install_path` | `/opt/mailcow-dockerized` | the install path for mailcow |
 | basic | `mailcow_timezone` | `Europe/Berlin` | the time zone value for mailcow  (`MAILCOW_TZ`) |
@@ -30,12 +33,13 @@ The role depends on the
 | security | `mailcow_api_key_read_only` | | the API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_allow_from` | | list of IPs to allow API access from |
 | security | `mailcow_rspamd_ui_password` | | the password for the mailcow Rspamd UI |
-| security | `mailcow_delete_admin_script` |  `/root/ansible_mailcow_delete_admin.sh` | the path for the mailcow delete admin script |
+| security | `mailcow_delete_default_admin_script` | `/root/ansible_mailcow_delete_default_admin.sh` | the path for the mailcow delete default admin script |
 | security | `mailcow_set_admin_script` | `/root/ansible_mailcow_set_admin.sh` | the path for the mailcow set admin script |
 | security | `mailcow_set_rspamd_ui_password_script` | `/root/ansible_set_rspamd_ui_password.sh` | the path for the mailcow set Rspamd UI password script |
 | https | `mailcow_acme` | `out-of-the-box` | the way the Let's Encrypt certificate ist obtained: <br/> `out-the-box`:  The "acme-mailcow" container will try to obtain a LE certificate. <br/> `certbot`: The certbot cronjob will manage Let's Encrypt certificates |
 | https | `mailcow_acme_staging` | `no` | if ACME staging should be used (s. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#test-against-staging-acme-directory) |
 | https | `mailcow_additional_san` | `imap.*,smtp.*,autodiscover.*,autoconfig.*` | the additional domains (SSL Certificate Subject Alternative Names) |
+| https | `mailcow_certbot_post_hook_script_full_path` | `/root/ansible_mailcow_certbot_post_hook.sh` | the certbot post hook script |
 | configuration | `mailcow_submission_port` | `587` | the SUBMISSION_PORT in mailcow.conf |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 | configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
@@ -53,6 +57,9 @@ The role depends on the
 <!-- markdownlint-enable MD033 -->
 <!-- markdownlint-enable MD034 -->
 
+- The security variables need `mailcow_start`.
+- The `mailcow_acme` variant `certbot` needs a LE certificate installed (build with DNS challenge) and `mailcow_start`.
+
 ### Domain and DNS
 
 If DNS entries should be managed, there has to be a role `dns` with the following parameters:
@@ -67,20 +74,21 @@ If DNS entries should be managed, there has to be a role `dns` with the followin
 <!-- markdownlint-disable MD033 -->
 | group | variable | default | description |
 | --- | --- | --- | --- |
-| Domain/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
-| Domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
-| Domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
-| Domain | `mailcow_domain_max_mailboxes` | 20 | the maximum number of aliases for the `mailcow_domain` |
-| Domain | `mailcow_domain_default_mailbox_quota` | 2048 | the default mailbox quota for the `mailcow_domain` |
-| Domain | `mailcow_domain_max_mailbox_quota` | 4096 | the maximum for mailbox quota for the `mailcow_domain` |
-| Domain | `mailcow_domain_quota` | 40960 | the quota for the `mailcow_domain` |
-| DNS | `mailcow_dns` | `true` | defines the default for `mailcow_dns_*`, <br /> for creating DNS entries a defined `mailcow_domain` is required |
-| DNS | `mailcow_dns_mx` | | if the MX record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_autoconfig` | | if the autoconfig record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_autodiscover` | | if the autodiscover records for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_spf` | | if the SPF record for `mailcow_domain` should be created |
-| DNS | `mailcow_dns_tlsa` | | if the TLSA record for `mailcow_domain` should be created |
+| domain/DNS | `mailcow_domain` | | the mail domain for mailcow (there could be more than one, but this role supports creating a single one) |
+| domain | `mailcow_domain_description` | `mailcow_domain` | the description in mailcow for the `mailcow_domain` |
+| domain | `mailcow_domain_max_aliases` | 400 | the maximum number of aliases for the `mailcow_domain` |
+| domain | `mailcow_domain_max_mailboxes` | 20 | the maximum number of aliases for the `mailcow_domain` |
+| domain | `mailcow_domain_default_mailbox_quota` | 2048 | the default mailbox quota for the `mailcow_domain` |
+| domain | `mailcow_domain_max_mailbox_quota` | 4096 | the maximum for mailbox quota for the `mailcow_domain` |
+| domain | `mailcow_domain_quota` | 40960 | the quota for the `mailcow_domain` |
 | DNS | `mailcow_dns_do` | `true` | if the role should create the dns records with role `dns` (s. above) or only create the output variable `mailcow_dns_records` |
+| DNS | `mailcow_dns` | `true` | defines the default for `mailcow_dns_*`, <br /> for creating DNS entries a defined `mailcow_domain` is required |
+| DNS | `mailcow_dns_mx` | `true` | if the MX record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_autoconfig` | `true` | if the autoconfig record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_autodiscover` | `true` | if the autodiscover records for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_spf` | `true` | if the SPF record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_tlsa` | `true` | if the TLSA record for `mailcow_domain` should be created |
+| DNS | `mailcow_dns_dkim` | `true` | if the DKIM record for `mailcow_domain` should be created |
 | DNS | `mailcow_dns_debug` | `false` | if debug information should be printed |
 <!-- markdownlint-enable MD033 -->
 
