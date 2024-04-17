@@ -1,0 +1,11 @@
+---
+
+- name: Ensure mailcow cloned
+  ansible.builtin.git:
+    repo: https://github.com/mailcow/mailcow-dockerized.git
+    version: "{{ mailcow_version }}"
+    update: false
+    dest: "{{ mailcow_install_path }}"
+    umask: '022'
+
+...
