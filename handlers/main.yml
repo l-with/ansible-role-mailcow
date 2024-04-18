@@ -1,0 +1,8 @@
+---
+
+- name: restart rspamd
+  ansible.builtin.shell:
+    chdir: "{{ mailcow_install_path }}"
+    cmd: docker compose restart rspamd-mailcow 
+
+...
