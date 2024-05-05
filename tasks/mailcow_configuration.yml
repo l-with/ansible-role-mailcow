@@ -23,7 +23,7 @@
     path: "{{ mailcow_install_path }}/data/conf/rspamd/custom/ip_wl.map"
     backup: true
     line: ip
-  loop: mailcow_rspamd_ip_whitelist
+  loop: "{{ mailcow_rspamd_ip_whitelist }}"
   loop_control:
     index_var: ip
   notify: restart rspamd
