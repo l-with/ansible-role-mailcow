@@ -44,6 +44,7 @@ mailcow_certbot_post_hook_script_full_path: /root/ansible_mailcow_certbot_post_h
 mailcow_submission_port: 587
 mailcow_greylisting: true
 mailcow_mynetworks: ''
+mailcow_rspamd_ip_whitelist: []
 
 ########
 # oauth2

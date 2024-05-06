@@ -43,6 +43,7 @@ The role depends on the
 | configuration | `mailcow_submission_port` | `587` | the SUBMISSION_PORT in mailcow.conf |
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 | configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
+| configuration | `mailcow_rspamd_ip_whitelist` | `[]` | the list of ip adresses to be added to rspamd ip whitelist |
 | oauth2 | `mailcow_configure_oauth2` | `false` | if oauth2 should be configured |
 | oauth2 | `mailcow_oauth2_client_redirect_uri` | | the redirect uri for the mailcow oauth2 app |
 | oauth2 | `mailcow_oauth2_client_scope` | `profile` | the scope for the mailcow oauth2 app |
