@@ -10,16 +10,6 @@
     chdir: "{{ mailcow_install_path }}"
     creates: mailcow.conf
 
-- name: Ensure API key
-  ansible.builtin.blockinfile:
-    path: "{{ mailcow_install_path }}/mailcow.conf"
-    backup: true
-    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY)"
-    insertafter: "#API_KEY="
-    block: |
-      API_KEY={{ mailcow_api_key }}
-  when: mailcow_api_key is defined
-
 - name: Ensure SUBMISSION_PORT in mailcow.conf
   ansible.builtin.lineinfile:
     path:   "{{ mailcow_install_path }}/mailcow.conf"
@@ -41,6 +31,16 @@
     regexp: '- "\${SUBMISSION_PORT:-\d+}:\d+"'
     line:   "        - \"${SUBMISSION_PORT:-{{ mailcow_submission_port }}}:{{ mailcow_submission_port }}\""
 
+- name: Ensure API key
+  ansible.builtin.blockinfile:
+    path: "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    marker: "### {mark} ANSIBLE MANAGED BLOCK (API_KEY)"
+    insertafter: "#API_KEY="
+    block: |
+      API_KEY={{ mailcow_api_key }}
+  when: mailcow_api_key is defined
+
 - name: Ensure API key read.only
   ansible.builtin.blockinfile:
     path: "{{ mailcow_install_path }}/mailcow.conf"
@@ -60,6 +60,24 @@
     block: |
       API_ALLOW_FROM={{ mailcow_api_allow_from | join(',') }}
   when: mailcow_api_allow_from is defined
+
+- name: Ensure DB mailcow password
+  ansible.builtin.lineinfile:
+    path: "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    search_string: "DBPASS="
+    line: |
+      DBPASS={{ mailcow_db_password }}
+  when: mailcow_db_password is defined
+
+- name: Ensure DB root password
+  ansible.builtin.lineinfile:
+    path: "{{ mailcow_install_path }}/mailcow.conf"
+    backup: true
+    search_string: "DBROOT="
+    line: |
+      DBROOT={{ mailcow_db_root_password }}
+  when: mailcow_db_root_password is defined
 
 - name: Ensure ADDITIONAL_SAN
   ansible.builtin.lineinfile:

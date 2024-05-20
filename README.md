@@ -32,6 +32,8 @@ The role depends on the
 | security | `mailcow_api_key` | | the API key for mailcow read-write access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_key_read_only` | | the API key for mailcow read-only access (allowed characters: a-z, A-Z, 0-9, -) |
 | security | `mailcow_api_allow_from` | | list of IPs to allow API access from |
+| security | `mailcow_db_password` | | the password for the mailcow database for user 'mailcow' |
+| security | `mailcow_db_root_password` | | the password for the mailcow database for the root user |
 | security | `mailcow_rspamd_ui_password` | | the password for the mailcow Rspamd UI |
 | security | `mailcow_delete_default_admin_script` | `/root/ansible_mailcow_delete_default_admin.sh` | the path for the mailcow delete default admin script |
 | security | `mailcow_set_admin_script` | `/root/ansible_mailcow_set_admin.sh` | the path for the mailcow set admin script |
