@@ -45,6 +45,8 @@ mailcow_submission_port: 587
 mailcow_greylisting: true
 mailcow_mynetworks: ''
 mailcow_rspamd_ip_whitelist: []
+mailcow_accept_wildcard_alias: false
+mailcow_add_wildcard_alias: false
 
 ########
 # oauth2

@@ -46,6 +46,8 @@ The role depends on the
 | configuration | `mailcow_greylisting` | `true` | if greylisting should be active |
 | configuration | `mailcow_mynetworks` | `` | list of subnetwork masks to add to `mynetworks` in postfix <br /> if subnetwork masks are provided at the beginning `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10` is added (local) |
 | configuration | `mailcow_rspamd_ip_whitelist` | `[]` | the list of ip adresses to be added to rspamd ip whitelist |
+| configuration | `mailcow_accept_wildcard_alias` | `false` | if a postfix virtual_alias_maps rule should be added accepting all mails matching `<prefix>.<alias-suffix>@<domain>` if an alias `<prefix>._wilcard_@<domain>` is present |
+| configuration | `mailcow_add_wildcard_alias` | `false` | if a postfix virtual_alias_maps rule should be added accepting all mails matching `<prefix>.<alias-suffix>@<domain>` if an alias `<prefix>._wilcard_@<domain>` is present and adding the address as alias in mailcow (needs also `mailcow_add_wildcard_alias` to be `true`) |
 | oauth2 | `mailcow_configure_oauth2` | `false` | if oauth2 should be configured |
 | oauth2 | `mailcow_oauth2_client_redirect_uri` | | the redirect uri for the mailcow oauth2 app |
 | oauth2 | `mailcow_oauth2_client_scope` | `profile` | the scope for the mailcow oauth2 app |

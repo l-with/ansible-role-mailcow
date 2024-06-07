@@ -17,6 +17,49 @@
     regexp: "mynetworks ="
     line: "mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 [fe80::]/10 {{ mailcow_mynetworks }}"
   when: 0 < (mailcow_mynetworks | length)
+  notify: restart postfix
+
+- name: Ensure accept wildcard alias rule file
+  ansible.builtin.template:
+    src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
+    dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps.cf"
+    mode:  u=rw,g=r
+  when: mailcow_wildcard_alias and not mailcow_add_wildcard_alias
+
+- name: Ensure reference of accept wildcard alias rule in extra.cf
+  ansible.builtin.blockinfile:
+    path: "{{ mailcow_install_path }}/data/conf/postfix/extra.cf"
+    backup: true
+    marker: "### {mark} ANSIBLE MANAGED BLOCK (accept wildcard alias)"
+    block: |
+      virtual_alias_maps = proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/custom_mysql_virtual_alias_wildcard_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_resource_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_spamalias_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_domain_maps.cf
+  when: mailcow_wildcard_alias and not mailcow_add_wildcard_alias
+  notify: restart postfix
+
+- name: Ensure accept and add wildcard alias rule file
+  ansible.builtin.template:
+    src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
+    dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps.cf"
+    mode:  u=rw,g=r
+  when: mailcow_wildcard_alias and mailcow_add_wildcard_alias
+
+- name: Ensure reference of accept and add wildcard alias rule in extra.cf
+  ansible.builtin.blockinfile:
+    path: "{{ mailcow_install_path }}/data/conf/postfix/extra.cf"
+    backup: true
+    marker: "### {mark} ANSIBLE MANAGED BLOCK (accept and add wildcard alias)"
+    block: |
+      virtual_alias_maps = proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/custom_mysql_virtual_alias_wildcard_maps_add_alias.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_resource_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_spamalias_maps.cf,
+        proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_domain_maps.cf
+  when: mailcow_wildcard_alias and mailcow_add_wildcard_alias
+  notify: restart postfix
 
 - name: Ensure rspamd ip whitelist
   ansible.builtin.lineinfile:
