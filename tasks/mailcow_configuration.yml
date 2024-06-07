@@ -24,7 +24,7 @@
     src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
     dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps.cf"
     mode:  u=rw,g=r
-  when: mailcow_wildcard_alias and not mailcow_add_wildcard_alias
+  when: mailcow_accept_wildcard_alias and not mailcow_add_wildcard_alias
 
 - name: Ensure reference of accept wildcard alias rule in extra.cf
   ansible.builtin.blockinfile:
@@ -37,7 +37,7 @@
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_resource_maps.cf,
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_spamalias_maps.cf,
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_domain_maps.cf
-  when: mailcow_wildcard_alias and not mailcow_add_wildcard_alias
+  when: mailcow_accept_wildcard_alias and not mailcow_add_wildcard_alias
   notify: restart postfix
 
 - name: Ensure accept and add wildcard alias rule file
@@ -45,7 +45,7 @@
     src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
     dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps.cf"
     mode:  u=rw,g=r
-  when: mailcow_wildcard_alias and mailcow_add_wildcard_alias
+  when: mailcow_accept_wildcard_alias and mailcow_add_wildcard_alias
 
 - name: Ensure reference of accept and add wildcard alias rule in extra.cf
   ansible.builtin.blockinfile:
@@ -58,7 +58,7 @@
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_resource_maps.cf,
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_spamalias_maps.cf,
         proxy:mysql:/opt/postfix/conf/sql/mysql_virtual_alias_domain_maps.cf
-  when: mailcow_wildcard_alias and mailcow_add_wildcard_alias
+  when: mailcow_accept_wildcard_alias and mailcow_add_wildcard_alias
   notify: restart postfix
 
 - name: Ensure rspamd ip whitelist
