@@ -42,8 +42,8 @@
 
 - name: Ensure accept and add wildcard alias rule file
   ansible.builtin.template:
-    src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
-    dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps.cf"
+    src:   custom_mysql_virtual_alias_wildcard_maps_add_alias.cf.cf.j2
+    dest:  "{{ mailcow_install_path }}/data/conf/postfix/sql/custom_mysql_virtual_alias_wildcard_maps_add_alias.cf.cf"
     mode:  u=rw,g=r
   when: mailcow_accept_wildcard_alias and mailcow_add_wildcard_alias
 
