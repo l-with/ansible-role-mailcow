@@ -19,15 +19,15 @@
   ansible.builtin.include_tasks: mailcow_version_ui.yml
   when: mailcow_configure and mailcow_version != mailcow_branch
 
-- name: Ensure mailcow configuration
-  ansible.builtin.include_tasks: mailcow_configuration.yml
-  when: mailcow_configure
-
 - name: Ensure mailcow is running with docker compose
   ansible.builtin.command:
     cmd:   "docker compose -p {{ mailcow_docker_compose_project_name }} up -d "
     chdir: "{{ mailcow_install_path }}"
   when: mailcow_start
+
+- name: Ensure mailcow downstream configuration
+  ansible.builtin.include_tasks: mailcow_downstream_conf.yml
+  when: mailcow_configure
 
 - name: Ensure mailcow admin
   ansible.builtin.include_tasks: mailcow_admin.yml

@@ -19,13 +19,6 @@
   when: 0 < (mailcow_mynetworks | length)
   notify: restart postfix
 
-- name: Ensure postfix sql config path
-  ansible.builtin.file:
-    path:  "{{ mailcow_install_path }}/data/conf/postfix/sql"
-    state: directory
-    mode:  u=rw,g=r
-  when: mailcow_accept_wildcard_alias or mailcow_add_wildcard_alias
-
 - name: Ensure accept wildcard alias rule file
   ansible.builtin.template:
     src:   custom_mysql_virtual_alias_wildcard_maps.cf.j2
