@@ -3,7 +3,6 @@ user = mailcow
 password = {{ mailcow_db_password }}
 hosts = unix:/var/run/mysqld/mysqld.sock
 dbname = mailcow
-
 query = SELECT goto FROM alias WHERE
     address=CONCAT(
         SUBSTR(

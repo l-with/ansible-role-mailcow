@@ -3,7 +3,6 @@ user = mailcow
 password = {{ mailcow_db_password }}
 hosts = unix:/var/run/mysqld/mysqld.sock
 dbname = mailcow
-
 query = INSERT INTO alias (goto, address, domain) SELECT goto, '%s', domain FROM alias WHERE
     address=CONCAT(
         SUBSTR(
