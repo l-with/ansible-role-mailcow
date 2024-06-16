@@ -59,6 +59,16 @@ The role depends on the
 | backup | `mailcow_restore_script_name` | `mailcow-restore.sh` | the name of the mailcow restore script |
 | backup | `mailcow_backup_script` | `"{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"` | the mailcow backup script |
 | backup | `mailcow_restore_script` | `"{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"` | the mailcow restore script |
+| cold-standby | `mailcow_cold_standby` | `false` | if a mailcow cold-standby server should be synchronized |
+| cold-standby | `mailcow_cold_standby_host` | | the mailcow cold-standby host |
+| cold-standby | `mailcow_cold_standby_schedule` | `true` | if the synchronize with the mailcow cold-standby server should be scheduled |
+| cold-standby | `mailcow_cold_standby_schedule_user` | `root` | the cron schedule user for synchronizing |
+| cold-standby | `mailcow_cold_standby_schedule_hour` | `"*"` | the cron schedule hour for synchronizing |
+| cold-standby | `mailcow_cold_standby_schedule_minute` | `"42"` | the cron schedule minute for synchronizing |
+| cold-standby | `mailcow_cold_standby_schedule_day` | `"*"` | the cron schedule day for synchronizing |
+| cold-standby | `mailcow_cold_standby_schedule_weekday` | `"*"` | the cron schedule weekday for synchronizing |
+| cold-standby | `mailcow_cold_standby_schedule_month` | `"*"` | the cron schedule month for synchronizing |
+
 <!-- markdownlint-enable MD033 -->
 <!-- markdownlint-enable MD034 -->
 
