@@ -5,4 +5,9 @@
     chdir: "{{ mailcow_install_path }}"
     cmd: docker compose restart rspamd-mailcow 
 
+- name: restart postfix
+  ansible.builtin.shell:
+    chdir: "{{ mailcow_install_path }}"
+    cmd: docker compose restart postfix-mailcow 
+
 ...
