@@ -59,9 +59,10 @@ The role depends on the
 | backup | `mailcow_restore_script_name` | `mailcow-restore.sh` | the name of the mailcow restore script |
 | backup | `mailcow_backup_script` | `"{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"` | the mailcow backup script |
 | backup | `mailcow_restore_script` | `"{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"` | the mailcow restore script |
-| cold-standby | `mailcow_cold_standby` | `false` | if a mailcow cold-standby server should be synchronized |
+| cold-standby | `mailcow_cold_standby` | `false` | if a mailcow cold-standby host should be synchronized |
 | cold-standby | `mailcow_cold_standby_host` | | the mailcow cold-standby host |
-| cold-standby | `mailcow_cold_standby_schedule` | `true` | if the synchronize with the mailcow cold-standby server should be scheduled |
+| cold-standby | `mailcow_cold_standby_ssh_private_key` | | the private ssh key for accessing the cold-standby host |
+| cold-standby | `mailcow_cold_standby_schedule` | `true` | if the synchronize with the mailcow cold-standby host should be scheduled |
 | cold-standby | `mailcow_cold_standby_schedule_user` | `root` | the cron schedule user for synchronizing |
 | cold-standby | `mailcow_cold_standby_schedule_hour` | `"*"` | the cron schedule hour for synchronizing |
 | cold-standby | `mailcow_cold_standby_schedule_minute` | `"42"` | the cron schedule minute for synchronizing |

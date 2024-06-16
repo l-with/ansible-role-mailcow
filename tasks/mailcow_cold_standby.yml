@@ -1,0 +1,36 @@
+---
+
+- name: Ensure cold-standby private ssh key
+  ansible.builtin.copy:
+    dest:    "{{ mailcow_install_path }}/id_mailcow_cold_standby"
+    mode:    u=rw
+    content: "{{ mailcow_cold_standby_ssh_private_key }}"
+
+- name: Ensure REMOTE_SSH_KEY value in create_cold_standby.sh
+  ansible.builtin.lineinfile:
+    path:  "{{ mailcow_install_path }}/create_cold_standby.sh"
+    backup: true
+    regexp: REMOTE_SSH_KEY=
+    line:   "REMOTE_SSH_KEY={{ mailcow_install_path }}/id_mailcow_cold_standby"
+
+- name: Ensure REMOTE_SSH_HOST value in create_cold_standby.sh
+  ansible.builtin.lineinfile:
+    path:  "{{ mailcow_install_path }}/create_cold_standby.sh"
+    backup: true
+    regexp: REMOTE_SSH_HOST=
+    line:   "REMOTE_SSH_HOST={{ mailcow_cold_standby_host }}"
+
+- name: Ensure cold standby sync schedule
+  ansible.builtin.cron:
+    name:      mailcow cold-standby
+    job:       "{{ mailcow_install_path }}/id_mailcow_cold_standby"
+    cron_file: ansible-mailcow-cold-standby
+    user:      "{{ mailcow_cold_standby_schedule_user }}"
+    hour:      "{{ mailcow_cold_standby_schedule_hour }}"
+    minute:    "{{ mailcow_cold_standby_schedule_minute }}"
+    day:       "{{ mailcow_cold_standby_schedule_day }}"
+    weekday:   "{{ mailcow_cold_standby_schedule_weekday }}"
+    month:     "{{ mailcow_cold_standby_schedule_month }}"
+  when: mailcow_cold_standby_schedule
+
+...
