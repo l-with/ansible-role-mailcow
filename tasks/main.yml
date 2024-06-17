@@ -48,8 +48,12 @@
   when: mailcow_domain is defined
 
 - name: Ensure configure backup
-  ansible.builtin.include_tasks: backup.yml
+  ansible.builtin.include_tasks: mailcow_backup.yml
   when: mailcow_configure_backup
+
+- name: Ensure configure cold-standby
+  ansible.builtin.include_tasks: mailcow_cold_standby.yml
+  when: mailcow_cold_standby
 
 - name: Ensure configure OAUTH2
   ansible.builtin.include_tasks: mailcow_oauth2.yml

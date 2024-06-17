@@ -67,6 +67,20 @@ mailcow_restore_script_name: mailcow-restore.sh
 mailcow_backup_script:       "{{ mailcow_backup_scripts_path }}/{{ mailcow_backup_script_name }}"
 mailcow_restore_script:      "{{ mailcow_backup_scripts_path }}/{{ mailcow_restore_script_name }}"
 
+##############
+# cold standby
+##############
+mailcow_cold_standby:                  false
+# mailcow_cold_standby_host
+# mailcow_cold_standby_ssh_private_key
+mailcow_cold_standby_schedule:         true
+mailcow_cold_standby_schedule_user:    root
+mailcow_cold_standby_schedule_hour:    "*"
+mailcow_cold_standby_schedule_minute:  "42"
+mailcow_cold_standby_schedule_day:     "*"
+mailcow_cold_standby_schedule_weekday: "*"
+mailcow_cold_standby_schedule_month:   "*"
+
 ########
 # domain
 ########
