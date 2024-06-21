@@ -4,7 +4,7 @@
   ansible.builtin.copy:
     dest:    "{{ mailcow_install_path }}/id_mailcow_cold_standby"
     mode:    u=rw,g=,o=
-    content: "{{ mailcow_cold_standby_ssh_private_key }}"
+    content: "{{ mailcow_cold_standby_ssh_private_key }}\n"
 
 - name: Ensure REMOTE_SSH_KEY value in create_cold_standby.sh
   ansible.builtin.lineinfile:
