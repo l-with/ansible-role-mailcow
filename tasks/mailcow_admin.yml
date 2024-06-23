@@ -25,6 +25,7 @@
   until: response.status == 200
   retries: 60
   delay: 30
+  check_mode: false
 
 - name: Wait for mailcow API ready
   ansible.builtin.uri:
@@ -35,6 +36,7 @@
   until: response.status == 200
   retries: 60
   delay: 30
+  check_mode: false
 
 - name: Ensure delete default admin
   ansible.builtin.shell:
