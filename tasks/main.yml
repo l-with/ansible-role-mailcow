@@ -20,9 +20,9 @@
   when: mailcow_configure and mailcow_version != mailcow_branch
 
 - name: Ensure mailcow is running with docker compose
-  ansible.builtin.command:
-    cmd:   "docker compose -p {{ mailcow_docker_compose_project_name }} up -d"
-    chdir: "{{ mailcow_install_path }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ mailcow_install_path }}"
+    wait:        true
   when: mailcow_start
 
 - name: Ensure mailcow downstream configuration
