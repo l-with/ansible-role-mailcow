@@ -23,6 +23,12 @@
   community.docker.docker_compose_v2:
     project_src: "{{ mailcow_install_path }}"
   when: mailcow_start
+  register: _mailkow_docker_compose
+
+- name: Print _mailkow_docker_compose
+  ansible.builtin.debug:
+    msg: "_mailkow_docker_compose : {{ _mailkow_docker_compose }}"
+  when: mailcow_start
 
 - name: Ensure mailcow downstream configuration
   ansible.builtin.include_tasks: mailcow_downstream_conf.yml
