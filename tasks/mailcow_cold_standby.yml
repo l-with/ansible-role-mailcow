@@ -23,7 +23,7 @@
 - name: Ensure cold standby sync schedule
   ansible.builtin.cron:
     name:      mailcow cold-standby
-    job:       "{{ mailcow_install_path }}/id_mailcow_cold_standby"
+    job:       "{{ mailcow_install_path }}/create_cold_standby.sh | systemd-cat -t create_cold_standby"
     cron_file: ansible-mailcow-cold-standby
     user:      "{{ mailcow_cold_standby_schedule_user }}"
     hour:      "{{ mailcow_cold_standby_schedule_hour }}"
