@@ -1,0 +1,184 @@
+docker exec -it mailcowdockerized-mysql-mailcow-1 /bin/bash
+mysql -u mailcow -p2cywgmcvaDshhnkphgxguwoulahzua -h localhost mailcow
+
+SELECT INSTR("l.alias@with.de", "@");
+
+SELECT 
+INSTR( 
+    SUBSTR(
+        "l.alias@with.de",
+        1,
+        INSTR("l.alias@with.de", "@")
+    ),
+    "."
+)
+;
+
+SELECT 
+CONCAT(
+    SUBSTR(
+        "l.alias@with.de",
+        1,
+        INSTR( 
+            SUBSTR(
+                "l.alias@with.de",
+                1,
+                INSTR("l.alias@with.de", "@")
+            ),
+            "."
+        )
+    ),
+    "_wildcard_",
+    SUBSTR(
+        "l.alias@with.de",
+        INSTR(
+            "l.alias@with.de",
+            "@"
+        )
+    )
+)
+;
+
+    SELECT goto, "l.alias@with84.de", "with84.de" FROM alias WHERE
+        address=CONCAT(
+            SUBSTR(
+                "l.alias@with84.de",
+                1,
+                INSTR( 
+                    SUBSTR(
+                        "l.alias@with84.de",
+                        1,
+                        INSTR("l.alias@with84.de", "@")
+                    ),
+                    "."
+                )
+            ),
+            "_wildcard_",
+            SUBSTR(
+                "l.alias@with84.de",
+                INSTR(
+                    "l.alias@with84.de",
+                    "@"
+                )
+            )
+        )
+    ;
+
+INSERT INTO alias (goto, address, domain) 
+    SELECT goto, "l.alias@with84.de", "with84.de" FROM alias WHERE
+    address=CONCAT(
+        SUBSTR(
+            "l.alias@with84.de",
+            1,
+            INSTR( 
+                SUBSTR(
+                    "l.alias@with84.de",
+                    1,
+                    INSTR("l.alias@with84.de", "@")
+                ),
+                "."
+            )
+        ),
+        "_wildcard_",
+        SUBSTR(
+            "l.alias@with84.de",
+            INSTR(
+                "l.alias@with84.de",
+                "@"
+            )
+        )
+    )
+    AND (active='1' OR active='2')
+    RETURNING goto;
+;
+
+INSERT INTO alias (goto, address, domain) 
+SELECT goto, 'l.alias@with84.de', domain FROM alias WHERE
+    address=CONCAT(
+        SUBSTR(
+            'l.alias@with84.de',
+            1,
+            INSTR(
+                SUBSTR(
+                    'l.alias@with84.de',
+                    1,
+                    INSTR(
+                        'l.alias@with84.de',
+                        "@"
+                    )
+                ),
+                "."
+            )
+        ),
+        "_wildcard_",
+        SUBSTR(
+            'l.alias@with84.de',
+            INSTR(
+                'l.alias@with84.de',
+                "@"
+            )
+        )
+    )
+    AND (active='1' OR active='2')
+    RETURNING goto;
+
+INSERT INTO alias (goto, address, domain) 
+SELECT goto, 'l.pilz@with84.de', domain FROM alias WHERE
+    address=CONCAT(
+        SUBSTR(
+            'l.pilz@with84.de',
+            1,
+            INSTR(
+                SUBSTR(
+                    'l.pilz@with84.de',
+                    1,
+                    INSTR(
+                        'l.pilz@with84.de',
+                        "@"
+                    )
+                ),
+                "."
+            )
+        ),
+        "_wildcard_",
+        SUBSTR(
+            'l.pilz@with84.de',
+            INSTR(
+                'l.pilz@with84.de',
+                "@"
+            )
+        )
+    )
+    AND (active='1' OR active='2')
+    RETURNING goto;
+
+query = INSERT INTO alias (goto, address, domain) 
+SELECT goto, '%s', domain FROM alias WHERE
+    address=CONCAT(
+        SUBSTR(
+            '%s',
+            1,
+            INSTR(
+                SUBSTR(
+                    '%s',
+                    1,
+                    INSTR(
+                        '%s',
+                        "@"
+                    )
+                ),
+                "."
+            )
+        ),
+        "_wildcard_",
+        SUBSTR(
+            '%s',
+            INSTR(
+                '%s',
+                "@"
+            )
+        )
+    )
+    AND (active='1' OR active='2')
+    RETURNING goto;
+

@@ -1,17 +1,22 @@
 ---
 
-- name: Ensure mailcow certbot post-hook script
+- name: Ensure mailcow certbot deploy-hook script
   ansible.builtin.template:
-    src: mailcow_certbot_post-hook.sh.j2
-    dest: "{{ mailcow_certbot_post_hook_script_full_path }}"
+    src: mailcow_certbot_deploy-hook.sh.j2
+    dest: "{{ mailcow_certbot_deploy_hook_script_full_path }}"
     owner: root
     group: root
     mode: u+x,o-r
 
-- name: Ensure mailcow certbot post-hook script executed
+- name: Ensure mailcow certbot deploy-hook script executed
   ansible.builtin.shell:
-    cmd: "{{ mailcow_certbot_post_hook_script_full_path }} && touch ansible_done_certbot_post_hook_script"
+    cmd: "{{ mailcow_certbot_deploy_hook_script_full_path }} && touch ansible_done_certbot_deploy_hook_script"
   args:
-    creates: ansible_done_certbot_post_hook_script
+    creates: ansible_done_certbot_deploy_hook_script
+
+- name: Ensure deploy-hook in /etc/letsencrypt/cli.ini
+  ansible.builtin.blockinfile:
+    path:  /etc/letsencrypt/cli.ini
+    block: "deploy-hook {{ mailcow_certbot_deploy_hook_script_full_path }}"
 
 ...
