@@ -33,10 +33,10 @@ mailcow_set_rspamd_ui_password_script: /root/ansible_set_rspamd_ui_password.sh
 #######
 # https
 #######
-mailcow_acme:                               'out-of-the-box'
-mailcow_acme_staging:                       false
-mailcow_additional_san:                     autodiscover.*,autoconfig.*
-mailcow_certbot_post_hook_script_full_path: /root/ansible_mailcow_certbot_post_hook.sh
+mailcow_acme:                                 'out-of-the-box'
+mailcow_acme_staging:                         false
+mailcow_additional_san:                       autodiscover.*,autoconfig.*
+mailcow_certbot_deploy_hook_script_full_path: /root/ansible_mailcow_certbot_deploy_hook.sh
 
 ###############
 # configuration
