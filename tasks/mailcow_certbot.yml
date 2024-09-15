@@ -17,6 +17,6 @@
 - name: Ensure deploy-hook in /etc/letsencrypt/cli.ini
   ansible.builtin.blockinfile:
     path:  /etc/letsencrypt/cli.ini
-    block: "deploy-hook {{ mailcow_certbot_post_hook_script_full_path }}"
+    block: "deploy-hook {{ mailcow_certbot_deploy_hook_script_full_path }}"
 
 ...
