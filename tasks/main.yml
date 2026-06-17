@@ -49,14 +49,14 @@
 
 - name: Ensure configure backup
   ansible.builtin.include_tasks: mailcow_backup.yml
-  when: mailcow_configure_backup
+  when: mailcow_configure_backup | bool
 
 - name: Ensure configure cold-standby
   ansible.builtin.include_tasks: mailcow_cold_standby.yml
-  when: mailcow_cold_standby
+  when: mailcow_cold_standby | bool
 
 - name: Ensure configure OAUTH2
   ansible.builtin.include_tasks: mailcow_oauth2.yml
-  when: mailcow_configure_oauth2
+  when: mailcow_configure_oauth2 | bool
 
 ...
