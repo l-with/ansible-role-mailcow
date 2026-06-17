@@ -1,0 +1,14 @@
+---
+
+exclude_paths:
+    - .yamllint
+
+skip_list:
+    - name[template]
+    - yaml[colons]
+    - command-instead-of-shell
+    - risky-shell-pipe
+    - curl-instead-of-get_url
+    - command-instead-of-module
+    
+...
